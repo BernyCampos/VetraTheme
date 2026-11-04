@@ -1,0 +1,11 @@
+{
+  "resources/css/vetra.css": {
+    "file": "vetra.css",
+    "name": "vetra",
+    "names": [
+      "vetra.css"
+    ],
+    "src": "resources/css/vetra.css",
+    "isEntry": true
+  }
+}

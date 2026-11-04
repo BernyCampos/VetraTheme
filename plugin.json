@@ -1,0 +1,17 @@
+{
+  "id": "vetra-theme",
+  "name": "VetraTheme",
+  "author": "Berny Campos",
+  "version": "1.0.0",
+  "description": "Ambient glass theme with readable native console, files and administration.",
+  "category": "theme",
+  "namespace": "Vetra\\Theme",
+  "class": "VetraThemePlugin",
+  "panels": [
+    "admin",
+    "app",
+    "server"
+  ],
+  "panel_version": "1.0.0-rc.2",
+  "api_version": 1
+}

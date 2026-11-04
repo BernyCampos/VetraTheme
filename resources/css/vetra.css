@@ -1,0 +1,343 @@
+/* VetraTheme: additive CSS only. Filament and Pelican remain the layout owners.
+ * Selectors tied to rc.2 are recorded in docs/COMPATIBILITY.md.
+ */
+body:has(#vetra-ambient) {
+    --vetra-surface-rgb: var(--vetra-light-surface-rgb);
+    --vetra-solid: var(--vetra-light-surface);
+    --vetra-text: var(--vetra-light-text);
+    --vetra-muted: var(--vetra-light-muted);
+    --vetra-line: rgb(var(--vetra-light-border-rgb) / .17);
+    --vetra-sidebar-rgb: var(--vetra-light-sidebar-rgb);
+    --vetra-topbar-rgb: var(--vetra-light-topbar-rgb);
+    --vetra-notice-rgb: var(--vetra-light-notice-rgb);
+    --vetra-notice-accent: var(--vetra-light-notice-accent);
+    --vetra-console: var(--vetra-light-console);
+    --vetra-input-rgb: var(--vetra-light-input-rgb);
+    --vetra-shadow: 0 10px 32px rgb(35 46 76 / .07);
+    background: var(--vetra-light-page);
+    color: var(--vetra-text);
+    isolation: isolate;
+}
+.dark body:has(#vetra-ambient) {
+    --vetra-surface-rgb: var(--vetra-dark-surface-rgb);
+    --vetra-solid: var(--vetra-dark-surface);
+    --vetra-text: var(--vetra-dark-text);
+    --vetra-muted: var(--vetra-dark-muted);
+    --vetra-line: rgb(var(--vetra-dark-border-rgb) / .12);
+    --vetra-sidebar-rgb: var(--vetra-dark-sidebar-rgb);
+    --vetra-topbar-rgb: var(--vetra-dark-topbar-rgb);
+    --vetra-notice-rgb: var(--vetra-dark-notice-rgb);
+    --vetra-notice-accent: var(--vetra-dark-notice-accent);
+    --vetra-console: var(--vetra-dark-console);
+    --vetra-input-rgb: var(--vetra-dark-input-rgb);
+    --vetra-shadow: 0 10px 32px rgb(4 9 20 / .16);
+    background: var(--vetra-dark-page);
+}
+#vetra-ambient {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse at 98% 0%, color-mix(in srgb, var(--vetra-primary) 42%, transparent), transparent 56%),
+        radial-gradient(ellipse at 51% 48%, color-mix(in srgb, var(--vetra-secondary) 27%, transparent), transparent 57%),
+        radial-gradient(ellipse at 0% 100%, color-mix(in srgb, var(--vetra-accent) 40%, transparent), transparent 51%);
+}
+#vetra-ambient::before {
+    content: '';
+    position: absolute;
+    inset: -30px;
+    background-image: var(--vetra-image);
+    background-size: cover;
+    background-position: center;
+    filter: blur(var(--vetra-background-blur));
+    opacity: calc(1 - var(--vetra-dim));
+}
+#vetra-ambient[data-style='solid'] { background: none; }
+#vetra-ambient[data-style='solid']::before { display: none; }
+body:has(#vetra-ambient) :is(.fi-layout, .fi-main-ctn) { background: transparent; }
+
+/* Surfaces: no universal opacity, transform, filter or overflow on layout roots. */
+body:has(#vetra-ambient) :is(.fi-section, .fi-ta-ctn, .fi-wi-stats-overview-stat, .fi-small-stat-block, .fi-simple-main) {
+    background: var(--vetra-solid);
+    border-radius: var(--vetra-radius);
+    box-shadow: var(--vetra-shadow), inset 0 0 0 1px var(--vetra-line);
+}
+@supports (backdrop-filter: blur(1px)) {
+    body:has(#vetra-ambient) :is(.fi-section, .fi-ta-ctn, .fi-wi-stats-overview-stat, .fi-small-stat-block, .fi-simple-main) {
+        background: rgb(var(--vetra-surface-rgb) / var(--vetra-opacity));
+    }
+    body:has(#vetra-ambient) :is(.fi-sidebar, .fi-topbar) {
+        backdrop-filter: blur(var(--vetra-blur)) saturate(115%);
+        -webkit-backdrop-filter: blur(var(--vetra-blur)) saturate(115%);
+        background: rgb(var(--vetra-surface-rgb) / var(--vetra-opacity));
+    }
+}
+body:has(#vetra-ambient) :is(.fi-sidebar, .fi-topbar) {
+    border-color: var(--vetra-line);
+    box-shadow: var(--vetra-shadow);
+}
+body:has(#vetra-ambient) .fi-sidebar { background: rgb(var(--vetra-sidebar-rgb) / var(--vetra-opacity)); }
+body:has(#vetra-ambient) .fi-topbar { background: rgb(var(--vetra-topbar-rgb) / var(--vetra-opacity)); }
+body:has(#vetra-ambient) :is(.fi-section, .fi-ta-ctn, .fi-modal-window, .fi-dropdown-panel, .fi-input, .fi-select-input, .fi-sidebar-item-label, .fi-topbar-item-label, .fi-header-heading, .fi-section-header-heading, .fi-fo-field-label-content) { color: var(--vetra-text); }
+body:has(#vetra-ambient) :is(.fi-section-header-description, .fi-fo-field-helper-text, .fi-ta-header-cell-label) { color: var(--vetra-muted); }
+body:has(#vetra-ambient) .fi-sidebar-header { background: transparent; box-shadow: none; }
+body:has(#vetra-ambient) .fi-sidebar-nav { gap: 1.5rem; padding-inline: 1rem; }
+body:has(#vetra-ambient) .fi-sidebar-group-label {
+    font-size: .67rem;
+    font-weight: 650;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--vetra-muted);
+}
+body:has(#vetra-ambient) .fi-sidebar-item-btn {
+    border-radius: calc(var(--vetra-radius) * .65);
+    min-height: 2.65rem;
+}
+body:has(#vetra-ambient) .fi-sidebar-item-active > .fi-sidebar-item-btn {
+    background: color-mix(in srgb, var(--vetra-primary) 17%, transparent);
+    box-shadow: inset 3px 0 var(--vetra-primary);
+}
+body:has(#vetra-ambient) .fi-topbar { min-height: 3.5rem; }
+body:has(#vetra-ambient) .fi-header {
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--vetra-line);
+    border-radius: var(--vetra-radius);
+    background: linear-gradient(120deg, color-mix(in srgb, var(--vetra-primary) 13%, transparent), transparent 70%), rgb(var(--vetra-surface-rgb) / var(--vetra-opacity));
+}
+body:has(#vetra-ambient) .fi-header-heading { letter-spacing: -.025em; }
+body:has(#vetra-ambient) :is(.fi-section-header, .fi-ta-header, .fi-ta-header-toolbar) { border-color: var(--vetra-line); }
+
+/* Keep the two main page surfaces visible when Filament or another plugin
+ * applies transparent backgrounds to the header and table wrappers. */
+body:has(#vetra-ambient) .fi-page-header-main-ctn > header.fi-header {
+    border: 1px solid var(--vetra-line);
+    border-radius: var(--vetra-radius);
+    background-color: rgb(var(--vetra-surface-rgb) / var(--vetra-opacity));
+    background-image: linear-gradient(120deg, color-mix(in srgb, var(--vetra-primary) 13%, transparent), transparent 70%);
+    box-shadow: var(--vetra-shadow);
+}
+body:has(#vetra-ambient) .fi-ta > .fi-ta-ctn {
+    overflow: clip;
+    border: 1px solid var(--vetra-line);
+    border-radius: var(--vetra-radius);
+    background-color: rgb(var(--vetra-surface-rgb) / var(--vetra-opacity));
+    box-shadow: var(--vetra-shadow);
+}
+@supports (backdrop-filter: blur(1px)) {
+    body:has(#vetra-ambient) :is(.fi-page-header-main-ctn > header.fi-header, .fi-ta > .fi-ta-ctn) {
+        backdrop-filter: blur(var(--vetra-blur)) saturate(110%);
+        -webkit-backdrop-filter: blur(var(--vetra-blur)) saturate(110%);
+    }
+}
+body:has(#vetra-ambient) :is(.fi-modal-window, .fi-dropdown-panel) {
+    background: var(--vetra-solid);
+    border-radius: var(--vetra-radius);
+}
+body:has(#vetra-ambient) :is(.fi-input-wrp, .fi-btn) { border-radius: calc(var(--vetra-radius) * .6); }
+body:has(#vetra-ambient) .fi-input-wrp { background-color: rgb(var(--vetra-input-rgb) / .95); }
+body:has(#vetra-ambient) :is(.fi-ta-row, .fi-ta-cell) { border-color: var(--vetra-line); }
+body:has(#vetra-ambient) .fi-ta-row:hover { background-color: color-mix(in srgb, var(--vetra-primary) 5%, transparent); }
+body:has(#vetra-ambient) :is(.fi-wi-stats-overview-stat-value, .fi-small-stat-block) { font-variant-numeric: tabular-nums; }
+body:has(#vetra-ambient) .fi-small-stat-block { padding: 1rem; }
+body:has(#vetra-ambient) .fi-small-stat-block > span { display: grid; gap: .45rem; }
+body:has(#vetra-ambient) .fi-small-stat-block > span > span:first-child { color: var(--vetra-muted); font-size: .75rem; }
+body:has(#vetra-ambient) .fi-small-stat-block > span > span:last-child { color: var(--vetra-text); }
+/* The native overview section is uncontained: only its six cards get a surface. */
+body:has(#vetra-ambient[data-panel='server']) .fi-console-page .fi-wi-stats-overview .fi-section:has(.fi-small-stat-block) {
+    background: transparent;
+    box-shadow: none;
+    border: 0;
+}
+body:has(#vetra-ambient[data-panel='server']) .fi-console-page .fi-wi-stats-overview .fi-small-stat-block {
+    border: 1px solid var(--vetra-line);
+    border-radius: var(--vetra-radius);
+    background-color: rgb(var(--vetra-surface-rgb) / var(--vetra-opacity));
+    box-shadow: var(--vetra-shadow);
+}
+
+/* Native terminal is never translucent, recolored by canvas filters, or reparented. */
+body:has(#vetra-ambient) #terminal {
+    background: var(--vetra-console);
+    border: 1px solid var(--vetra-line);
+    border-bottom: 0;
+    border-radius: var(--vetra-radius) var(--vetra-radius) 0 0;
+    padding: .65rem .4rem;
+}
+body:has(#vetra-ambient) #send-command {
+    background: #182232;
+    color: #edf1f9;
+    min-height: 2.75rem;
+    font-family: ui-monospace, Consolas, monospace;
+}
+body:has(#vetra-ambient) #send-command::placeholder { color: #b8c2d5; }
+body:has(#vetra-ambient) .monaco-editor { border: 1px solid var(--vetra-line); }
+body:has(#vetra-ambient) .fi-console-page .fi-header-heading { font-size: .78rem; color: var(--vetra-muted); letter-spacing: .07em; text-transform: uppercase; }
+.vetra-server-context strong { display: block; margin-top: .25rem; font-size: 1.45rem; letter-spacing: -.025em; overflow-wrap: anywhere; }
+.vetra-server-context span { display: inline-block; margin-top: .5rem; color: var(--vetra-muted); font: .75rem ui-monospace, Consolas, monospace; }
+.vetra-server-context p { margin-top: .5rem; color: var(--vetra-muted); font-size: .85rem; max-width: 65ch; overflow-wrap: anywhere; }
+
+/* Server power actions: native SVG icons remain accessible through their
+ * existing text names, while the visible control is a compact icon button.
+ * Only this group loses its shared frame; every button keeps its own frame. */
+body:has(#vetra-ambient[data-panel='server']) .fi-console-page .fi-header-actions-ctn .fi-btn-group {
+    display: flex;
+    gap: .55rem;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+body:has(#vetra-ambient[data-panel='server']) .fi-console-page .fi-header-actions-ctn .fi-btn-group > .fi-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.85rem;
+    min-width: 2.85rem;
+    height: 2.85rem;
+    min-height: 2.85rem;
+    margin: 0;
+    padding: 0;
+    gap: 0;
+    overflow: visible;
+    border: 1px solid var(--vetra-line);
+    border-radius: calc(var(--vetra-radius) * .62);
+    background: rgb(var(--vetra-surface-rgb) / .88);
+    box-shadow: 0 7px 18px rgb(4 9 20 / .13), inset 0 1px rgb(255 255 255 / .08);
+    color: var(--vetra-text);
+    font-size: 0;
+    line-height: 0;
+    transition: transform 150ms ease, border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
+}
+body:has(#vetra-ambient[data-panel='server']) .fi-console-page .fi-header-actions-ctn .fi-btn-group > .fi-btn > .fi-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    flex: none;
+}
+body:has(#vetra-ambient[data-panel='server']) .fi-console-page .fi-header-actions-ctn .fi-btn-group > .fi-btn.fi-color-primary {
+    border-color: color-mix(in srgb, var(--vetra-primary) 46%, var(--vetra-line));
+    background: color-mix(in srgb, var(--vetra-primary) 24%, rgb(var(--vetra-surface-rgb) / .94));
+    color: color-mix(in srgb, var(--vetra-primary) 72%, white);
+}
+body:has(#vetra-ambient[data-panel='server']) .fi-console-page .fi-header-actions-ctn .fi-btn-group > .fi-btn.fi-color-danger {
+    border-color: color-mix(in srgb, var(--vetra-danger) 48%, var(--vetra-line));
+    background: color-mix(in srgb, var(--vetra-danger) 22%, rgb(var(--vetra-surface-rgb) / .94));
+    color: color-mix(in srgb, var(--vetra-danger) 75%, white);
+}
+body:has(#vetra-ambient[data-panel='server']) .fi-console-page .fi-header-actions-ctn .fi-btn-group > .fi-btn:hover:not(.fi-disabled) {
+    z-index: 1;
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, currentColor 42%, var(--vetra-line));
+    box-shadow: 0 10px 24px rgb(4 9 20 / .18), inset 0 1px rgb(255 255 255 / .12);
+}
+body:has(#vetra-ambient[data-panel='server']) .fi-console-page .fi-header-actions-ctn .fi-btn-group > .fi-btn.fi-disabled {
+    transform: none;
+    box-shadow: none;
+    opacity: .48;
+}
+
+/* Native server-entry markup in Pelican rc.2, scoped strictly to the app panel. */
+body:has(#vetra-ambient[data-panel='app']) .fi-ta-content-grid .fi-ta-record {
+    border-radius: var(--vetra-radius);
+    border: 1px solid var(--vetra-line);
+    background: rgb(var(--vetra-surface-rgb) / var(--vetra-opacity));
+    box-shadow: var(--vetra-shadow);
+}
+body:has(#vetra-ambient[data-panel='app']) [wire\:poll\.15s] > .flex-1 {
+    background: linear-gradient(130deg, color-mix(in srgb, var(--vetra-primary) 16%, transparent), transparent 65%);
+    border-radius: var(--vetra-radius);
+    padding: 1.25rem;
+}
+body:has(#vetra-ambient[data-panel='app']) [wire\:poll\.15s] h2 { font-size: 1.1rem; letter-spacing: -.015em; }
+
+.vetra-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    margin-block: 1.25rem 0;
+    padding: .85rem 1rem;
+    border: 1px solid var(--vetra-line);
+    border-inline-start: 3px solid var(--vetra-notice-accent);
+    border-radius: calc(var(--vetra-radius) * .75);
+    background: rgb(var(--vetra-notice-rgb) / .96);
+    color: var(--vetra-text);
+    font-size: .85rem;
+    overflow-wrap: anywhere;
+}
+.vetra-notice-icon { width: 1.2rem; height: 1.2rem; flex-shrink: 0; color: var(--vetra-notice-accent); }
+.vetra-notice-content { min-width: 0; flex: 1; line-height: 1.6; }
+.vetra-notice-content > * + * { margin-top: .6rem; }
+.vetra-notice-content :is(h1, h2, h3, h4, h5, h6) { font-size: 1em; font-weight: 700; }
+.vetra-notice-content a { color: inherit; text-decoration: underline; text-underline-offset: .18em; }
+.vetra-notice-content ul { list-style: disc; padding-inline-start: 1.4rem; }
+.vetra-notice-content ol { list-style: decimal; padding-inline-start: 1.4rem; }
+.vetra-notice-content blockquote { border-inline-start: 2px solid var(--vetra-notice-accent); padding-inline-start: .8rem; }
+.vetra-notice-content code { font-family: ui-monospace, Consolas, monospace; font-size: .92em; background: rgb(var(--vetra-surface-rgb) / .7); border-radius: .25rem; padding: .1rem .25rem; }
+.vetra-notice-content pre { overflow-x: auto; max-width: 100%; padding: .6rem; border: 1px solid var(--vetra-line); border-radius: .4rem; }
+body:has(#vetra-ambient[data-density='compact']) :is(.fi-ta-cell, .fi-ta-header-cell) { padding-block: .55rem; }
+body:has(#vetra-ambient[data-density='compact']) .fi-header { padding: 1rem; }
+
+/* Flow-based desktop grid; DOM order and native chart authorization stay intact. */
+@media (min-width: 1280px) {
+    body:has(#vetra-ambient[data-side-charts='true']) .fi-console-page .fi-wi:has(> .fi-wi-widget #terminal):has(> .fi-wi-chart) {
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 29%);
+        gap: var(--vetra-gap);
+        align-items: start;
+    }
+    body:has(#vetra-ambient[data-side-charts='true']) .fi-console-page .fi-wi:has(> .fi-wi-chart) > .fi-wi-widget:has(#terminal) {
+        grid-column: 1;
+        grid-row: span 3;
+        min-width: 0;
+    }
+    body:has(#vetra-ambient[data-side-charts='true']) .fi-console-page .fi-wi:has(> .fi-wi-widget #terminal) > .fi-wi-chart { grid-column: 2; }
+    body:has(#vetra-ambient[data-style='floating']) .fi-sidebar {
+        margin: .65rem;
+        height: calc(100dvh - 1.3rem);
+        border: 1px solid var(--vetra-line);
+        border-radius: var(--vetra-radius);
+    }
+    body:has(#vetra-ambient[data-style='floating']) .fi-topbar {
+        margin: .65rem .65rem 0;
+        border: 1px solid var(--vetra-line);
+        border-radius: var(--vetra-radius);
+    }
+}
+@media (max-width: 767px) {
+    body:has(#vetra-ambient) .fi-sidebar { background: rgb(var(--vetra-sidebar-rgb)); }
+    body:has(#vetra-ambient) .fi-header { padding: 1rem; }
+    .vetra-server-context strong { font-size: 1.2rem; }
+}
+body:has(#vetra-ambient) :is(a, button, input, select, textarea):focus-visible {
+    outline: 2px solid var(--vetra-primary);
+    outline-offset: 3px;
+}
+body:has(#vetra-ambient[data-reduce-motion='true']) :is(.fi-sidebar, .fi-sidebar-item-btn, .fi-btn) { transition: none; }
+@media (prefers-reduced-motion: reduce) {
+    body:has(#vetra-ambient) :is(.fi-sidebar, .fi-sidebar-item-btn, .fi-btn) { transition: none; }
+}
+@media (prefers-reduced-transparency: reduce) {
+    body:has(#vetra-ambient) { --vetra-opacity: 1 !important; --vetra-blur: 0px !important; }
+    #vetra-ambient { display: none; }
+}
+@media (forced-colors: active) {
+    #vetra-ambient { display: none; }
+    body:has(#vetra-ambient) :is(.fi-section, .fi-sidebar, .fi-topbar, .fi-header, .vetra-notice) { border: 1px solid CanvasText; }
+}
+.vetra-preview {
+    padding: 1.25rem;
+    border-radius: var(--vetra-radius);
+    color: #edf1f9;
+    background: radial-gradient(at top right, var(--vetra-primary), transparent 65%), radial-gradient(at bottom left, var(--vetra-accent), transparent 65%), #252a40;
+}
+.vetra-preview figcaption { font-size: .75rem; margin-bottom: 1rem; color: #fff; text-shadow: 0 1px 3px #101722; }
+.vetra-preview-surface { display: flex; align-items: center; gap: 1rem; padding: 1rem; border-radius: var(--vetra-radius); background: rgb(29 38 57 / var(--vetra-opacity)); backdrop-filter: blur(var(--vetra-blur)); border: 1px solid rgb(255 255 255 / .2); }
+.vetra-preview-surface p { font-size: .8rem; margin-top: .3rem; }
+.vetra-preview-swatch { width: .5rem; height: 2.5rem; border-radius: 1rem; background: var(--vetra-primary); }
+.vetra-preview-light .vetra-preview-surface { background: rgb(247 249 253 / var(--vetra-opacity)); color: #233149; }
+@media print {
+    #vetra-ambient { display: none; }
+    body:has(#vetra-ambient) { background: white; }
+}
