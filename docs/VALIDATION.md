@@ -1,4 +1,4 @@
-# Vetra Theme 1.0.0 validation
+# Vetra Theme 1.0.1 validation
 
 ## Automated environment
 
@@ -62,4 +62,4 @@ They require `VETRA_URL`, `VETRA_EMAIL`, `VETRA_PASSWORD`, and optionally `VETRA
 
 ## Release criterion
 
-Version 1.0.0 targets the exact Pelican version declared in `plugin.json`. Release notes must keep the pending validation items above visible.
+Version 1.0.1 targets the exact Pelican version declared in `plugin.json`. Release notes must keep the pending validation items above visible.

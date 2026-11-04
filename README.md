@@ -49,7 +49,7 @@ Compatibility is intentionally restricted to the tested release. Read [COMPATIBI
 
 ## Installation
 
-1. Download `vetra-theme-1.0.0.zip` from the release assets.
+1. Download `vetra-theme-1.0.1.zip` from the release assets.
 2. Open **Administration → Plugins → Import**.
 3. Import the ZIP and wait for the queue job to finish.
 4. Install and enable Vetra Theme.
@@ -109,8 +109,8 @@ CI validates the manifest, compiled assets, PHP syntax, security-focused appeara
 
 The packaging script creates:
 
-- `build/vetra-theme-1.0.0.zip` — installable plugin.
-- `build/vetra-theme-1.0.0-source.zip` — source, tests, and workflow.
+- `build/vetra-theme-1.0.1.zip` — installable plugin.
+- `build/vetra-theme-1.0.1-source.zip` — source, tests, and workflow.
 - `build/SHA256SUMS` — release checksums.
 - `build/update.json` — update feed when `--repository` is provided.
 

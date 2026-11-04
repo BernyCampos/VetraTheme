@@ -9,7 +9,7 @@
 
 ## The theme is installed but unchanged
 
-- Confirm the plugin row shows category **Theme**, version `1.0.0`, and enabled status.
+- Confirm the plugin row shows category **Theme**, version `1.0.1`, and enabled status.
 - Open Vetra Theme settings and submit once.
 - Fully reload the browser.
 - Rebuild only the caches required by your normal Pelican deployment.

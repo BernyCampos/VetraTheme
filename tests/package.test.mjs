@@ -9,7 +9,7 @@ test('Pelican manifest, namespace and panels', () => {
     assert.equal(manifest.name, 'Vetra Theme');
     assert.equal(manifest.category, 'theme');
     assert.equal(manifest.api_version, 1);
-    assert.equal(manifest.version, '1.0.0');
+    assert.equal(manifest.version, '1.0.1');
     assert.deepEqual(manifest.panels, ['admin', 'app', 'server']);
     assert.equal(manifest.version, JSON.parse(read('package.json')).version);
     assert.ok(!('composer_packages' in manifest));

@@ -39,7 +39,7 @@ Vetra Theme does not replace the console, file manager, server metrics, permissi
 
 ## Installation
 
-Import `vetra-theme-1.0.0.zip` from **Administration → Plugins**, wait for the queue, install, enable, and save the appearance settings. Do not use the `-source.zip` asset as the installable package.
+Import `vetra-theme-1.0.1.zip` from **Administration → Plugins**, wait for the queue, install, enable, and save the appearance settings. Do not use the `-source.zip` asset as the installable package.
 
 ## Privacy and security
 
