@@ -14,6 +14,8 @@ Customizable glass theme for Pelican Panel with persistent palettes, safe backgr
 
 Vetra Theme is an original appearance plugin for Pelican Panel. It adds balanced ambient lighting, translucent navigation, configurable surfaces, and accessible light/dark palettes while preserving Pelican and Filament behavior.
 
+Vetra Theme is an independently developed and distributed third-party project. It is not an official Pelican product and is not authored, distributed, endorsed, or pre-approved by the Pelican project.
+
 Administrators can choose Glass, Solid, Floating, or Light Glass styles; configure 29 colors; adjust opacity, blur, radius, density, and navigation; upload a validated background; and publish a safe global Markdown notice. Settings use Pelican's supported plugin mechanisms and require no database migrations.
 
 Vetra Theme does not replace the console, file manager, server metrics, permissions, or power actions. It styles the real native components already rendered by Pelican.
@@ -43,7 +45,7 @@ Import `vetra-theme-1.0.0.zip` from **Administration → Plugins**, wait for the
 
 ## Privacy and security
 
-The distribution has no telemetry, analytics, hidden remote calls, direct SQL, migrations, or obfuscated code. Uploads, paths, Markdown, colors, and numeric settings are validated. The only declared update endpoint is Pelican Hub's official `https://hub.pelican.dev/plugins/vetra-theme/update.json` feed.
+The distribution has no telemetry, analytics, hidden remote calls, direct SQL, migrations, or obfuscated code. Uploads, paths, Markdown, colors, and numeric settings are validated. The only declared update endpoint is the configured Pelican Hub feed at `https://hub.pelican.dev/plugins/vetra-theme/update.json`.
 
 ## Suggested screenshot order
 

@@ -1,6 +1,8 @@
 # Vetra Theme
 
-A configurable glass theme for **Pelican Panel 1.0.0-rc.2**, distributed through Pelican's official plugin system as a `theme` plugin using API version 1.
+A configurable third-party glass theme for **Pelican Panel 1.0.0-rc.2**. It uses Pelican's plugin system with category `theme` and API version 1.
+
+Vetra Theme is independently developed and distributed. It is not an official Pelican product and is not authored, distributed, endorsed, or approved by the Pelican project.
 
 Vetra Theme adds ambient lighting, translucent surfaces, and persistent appearance controls without replacing Filament's foundational CSS, modifying Pelican core, or recreating operational features. Console access, files, metrics, permissions, and power actions remain native Pelican features.
 
@@ -77,7 +79,7 @@ Vetra Theme contains no direct SQL, migrations, telemetry, analytics, obfuscated
 - Colors, numbers, paths, Markdown, and uploads are validated before use.
 - Uploaded SVG files are parsed and reduced to an allowlist of safe graphical elements.
 - Background filenames are random and the public route is read-only.
-- The official Pelican Hub update URL is declared explicitly in `plugin.json`.
+- The configured Pelican Hub update URL is declared explicitly in `plugin.json`.
 
 Read [SECURITY.md](SECURITY.md) and [docs/SECURITY.md](docs/SECURITY.md) for reporting instructions and the technical security model.
 

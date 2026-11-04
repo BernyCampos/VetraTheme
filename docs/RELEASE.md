@@ -42,7 +42,7 @@ CI intentionally does not clone Pelican or run the removed `tests/integration.ph
 
 ## Update feed
 
-`plugin.json` declares Pelican Hub's official endpoint:
+`plugin.json` declares the configured Pelican Hub endpoint:
 
 ```text
 https://hub.pelican.dev/plugins/vetra-theme/update.json

@@ -36,7 +36,7 @@ Backgrounds are public theme assets. Do not upload confidential information.
 
 ## Network and dependencies
 
-The runtime has no telemetry, analytics, image lookup, hidden remote service, or obfuscated payload. The manifest explicitly declares only Pelican Hub's official update endpoint. Vetra Theme declares no additional Composer packages; Node dependencies are development-only and are excluded from the installable ZIP.
+The runtime has no telemetry, analytics, image lookup, hidden remote service, or obfuscated payload. The manifest explicitly declares only the configured Pelican Hub update endpoint. Vetra Theme declares no additional Composer packages; Node dependencies are development-only and are excluded from the installable ZIP.
 
 ## Database and system operations
 

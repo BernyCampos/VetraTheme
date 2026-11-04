@@ -35,7 +35,7 @@ Do not manually copy the package into Pelican core directories. The ZIP already 
 
 ## Update
 
-Use Pelican's normal plugin update flow and read the release notes first. The manifest points to the official Pelican Hub update feed. Back up configuration and backgrounds before updating. Never replace files while queue jobs or PHP workers are actively loading a partial package.
+Use Pelican's normal plugin update flow and read the release notes first. The manifest points to the configured Pelican Hub update feed. Back up configuration and backgrounds before updating. Never replace files while queue jobs or PHP workers are actively loading a partial package.
 
 ## Migration from `vetra-ui`
 
