@@ -23,7 +23,7 @@ php tests/appearance.php
 
 Validate PHP syntax for every file under `src`, `config`, `lang`, and `tests`. Browser scripts under `tests/browser*.mjs` require a disposable QA panel, never production.
 
-The repository must not restore `tests/integration.php` or a workflow step that clones Pelican and executes it. That file was removed after a Pelican Hub submission block. Compatibility work should be documented and tested in an isolated maintainer environment without shipping a blocked test harness.
+Compatibility work should be documented and tested in an isolated maintainer environment.
 
 ## Style
 

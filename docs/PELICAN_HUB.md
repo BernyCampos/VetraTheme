@@ -1,6 +1,6 @@
 # Pelican Hub listing
 
-This file contains ready-to-paste English Marketplace copy. Do not claim approval until Pelican Hub approves the exact submitted version and commit.
+This file contains the English plugin description, requirements, installation instructions, and screenshot order.
 
 ## Name
 
@@ -13,8 +13,6 @@ Customizable glass theme for Pelican Panel with persistent palettes, safe backgr
 ## Full description
 
 Vetra Theme is an original appearance plugin for Pelican Panel. It adds balanced ambient lighting, translucent navigation, configurable surfaces, and accessible light/dark palettes while preserving Pelican and Filament behavior.
-
-Vetra Theme is an independently developed and distributed third-party project. It is not an official Pelican product and is not authored, distributed, endorsed, or pre-approved by the Pelican project.
 
 Administrators can choose Glass, Solid, Floating, or Light Glass styles; configure 29 colors; adjust opacity, blur, radius, density, and navigation; upload a validated background; and publish a safe global Markdown notice. Settings use Pelican's supported plugin mechanisms and require no database migrations.
 
@@ -45,7 +43,7 @@ Import `vetra-theme-1.0.0.zip` from **Administration → Plugins**, wait for the
 
 ## Privacy and security
 
-The distribution has no telemetry, analytics, hidden remote calls, direct SQL, migrations, or obfuscated code. Uploads, paths, Markdown, colors, and numeric settings are validated. The only declared update endpoint is the configured Pelican Hub feed at `https://hub.pelican.dev/plugins/vetra-theme/update.json`.
+The plugin package has no telemetry, analytics, hidden remote calls, direct SQL, migrations, or obfuscated code. Uploads, paths, Markdown, colors, and numeric settings are validated. The only declared update endpoint is the configured Pelican Hub feed at `https://hub.pelican.dev/plugins/vetra-theme/update.json`.
 
 ## Suggested screenshot order
 
@@ -55,10 +53,6 @@ The distribution has no telemetry, analytics, hidden remote calls, direct SQL, m
 4. `docs/images/settings-appearance.png` — primary appearance controls.
 5. `docs/images/settings-notice.png` — palettes and safe notice editor.
 
-## Reviewer notes
+## Language
 
-- This is the first public version; documentation and code are presented in English.
-- Spanish is an optional locale translation layered through Pelican's translation system.
-- The formerly blocked `tests/integration.php` is not present and CI does not execute it.
-- Compatibility is claimed only for Pelican `1.0.0-rc.2`.
-- Marketplace approval remains per-version and is not implied by a successful GitHub workflow.
+English is the source language. Spanish is available through Pelican's plugin translation system when the panel locale is Spanish.

@@ -1,8 +1,6 @@
 # Vetra Theme
 
-A configurable third-party glass theme for **Pelican Panel 1.0.0-rc.2**. It uses Pelican's plugin system with category `theme` and API version 1.
-
-Vetra Theme is independently developed and distributed. It is not an official Pelican product and is not authored, distributed, endorsed, or approved by the Pelican project.
+A configurable glass theme for **Pelican Panel 1.0.0-rc.2**, packaged as a plugin with category `theme` and API version 1.
 
 Vetra Theme adds ambient lighting, translucent surfaces, and persistent appearance controls without replacing Filament's foundational CSS, modifying Pelican core, or recreating operational features. Console access, files, metrics, permissions, and power actions remain native Pelican features.
 
@@ -57,7 +55,7 @@ Compatibility is intentionally restricted to the tested release. Read [COMPATIBI
 4. Install and enable Vetra Theme.
 5. Open the plugin settings, save the appearance, and fully reload the page.
 
-Do not copy files into Pelican's `app`, `resources`, `vendor`, or other core directories. The full [installation guide](docs/INSTALLATION.md) covers verification, updates, migration, and removal.
+Do not copy files into Pelican's `app`, `resources`, `vendor`, or other core directories. The full [installation guide](docs/INSTALLATION.md) covers verification, updates, and removal.
 
 ## Configuration and localization
 
@@ -66,10 +64,6 @@ Settings are available at **Administration → Plugins → Vetra Theme → Setti
 English is the source language in code, metadata, tests, and documentation. Runtime labels use Pelican's translation system under `vetra-theme::ui`; `lang/es` supplies Spanish automatically when the panel locale is Spanish. The plugin does not force or override the user's locale.
 
 Uploaded images are stored persistently in `storage/app/vetra-theme/background`. When possible, a mirror is kept in `plugins/vetra-theme/background`; Vetra Theme never changes server permissions. A read-only route serves the selected image with a random name and restrictive headers. Supported formats and limits are documented in [CONFIGURATION.md](docs/CONFIGURATION.md).
-
-## Migration from the former identity
-
-This release uses plugin ID `vetra-theme`, namespace `Vetra\Theme`, and environment prefix `VETRA_THEME_`. Older development builds used `vetra-ui`, `Vetra\UI`, and `VETRA_UI_`. **Pelican treats those IDs as different plugins.** Back up `.env` and background images before disabling an old build, then follow the manual steps in [INSTALLATION.md](docs/INSTALLATION.md). Settings and files are not migrated automatically.
 
 ## Security and privacy
 
@@ -87,7 +81,7 @@ Read [SECURITY.md](SECURITY.md) and [docs/SECURITY.md](docs/SECURITY.md) for rep
 
 | Guide | Contents |
 | --- | --- |
-| [Installation](docs/INSTALLATION.md) | Import, enable, update, migrate, and remove |
+| [Installation](docs/INSTALLATION.md) | Import, enable, verify, update, and remove |
 | [Configuration](docs/CONFIGURATION.md) | Visual options, backgrounds, colors, and Markdown |
 | [Screenshots](docs/SCREENSHOTS.md) | Visual evidence and its scope |
 | [Architecture](docs/ARCHITECTURE.md) | Hooks, components, storage, and boundaries |
@@ -109,9 +103,9 @@ php tests/appearance.php
 python scripts/package.py --repository BernyCampos/VetraTheme
 ```
 
-The repository intentionally does not include the former `tests/integration.php`: Pelican Hub rejected that file during the first submission. CI validates the manifest, compiled assets, PHP syntax, security-focused appearance checks, documentation, and deterministic packages without cloning or modifying a panel.
+CI validates the manifest, compiled assets, PHP syntax, security-focused appearance checks, documentation, and deterministic packages.
 
-## Distribution
+## Packages
 
 The packaging script creates:
 
@@ -124,4 +118,4 @@ The installable ZIP contains one `vetra-theme/` root, `plugin.json` without `met
 
 ## License
 
-[GNU General Public License v3.0 only](LICENSE). Copyright © 2026 Berny Campos. Vetra Theme is an independent project; repository publication does not imply Pelican Hub approval.
+[GNU General Public License v3.0 only](LICENSE). Copyright © 2026 Berny Campos.

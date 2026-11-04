@@ -36,9 +36,7 @@ Build twice and compare the installable SHA-256 value. The packaging script fixe
 3. Tag `vVERSION` from the exact reviewed commit.
 4. Create a release titled `Vetra Theme VERSION`.
 5. Upload both ZIPs, `SHA256SUMS`, and `update.json`.
-6. Publish notes based on the changelog, requirements, limitations, migration notes, and security behavior.
-
-CI intentionally does not clone Pelican or run the removed `tests/integration.php`. That file caused the first Hub submission block and must not be restored.
+6. Publish notes based on the version requirements, limitations, and security behavior.
 
 ## Update feed
 
@@ -53,22 +51,21 @@ The repository release artifact `update.json` maps the exact Pelican version to 
 ## Pelican Hub submission
 
 - Use category **Theme**.
-- Submit the exact commit that passed CI, not the previously rejected commit.
+- Submit the exact commit that passed CI.
 - Use the English listing in [PELICAN_HUB.md](PELICAN_HUB.md).
 - Upload the installable ZIP and five supplied screenshots.
 - Declare GPL-3.0-only, supported Pelican version, support channel, limitations, and privacy behavior.
 - State that Spanish is a panel-locale translation, not the source language.
 - Confirm no telemetry, direct SQL, migrations, obfuscation, or hidden remote calls.
-- Verify the submitted revision no longer references commit `fb269f9adce6`; the corrected baseline was commit `4e73f6b` before the current language and branding work.
 
-Publication requirements can change. Recheck the [official Pelican plugin documentation](https://pelican.dev/docs/panel/advanced/plugins/) and [Pelican Hub terms](https://hub.pelican.dev/tos) before submission.
+Publication requirements can change. Recheck the [Pelican plugin documentation](https://pelican.dev/docs/panel/advanced/plugins/) and [Pelican Hub terms](https://hub.pelican.dev/tos) before submission.
 
 ## Checklist
 
 - [ ] English code, metadata, tests, documentation, and listing.
 - [ ] Spanish limited to `lang/es` runtime translation.
 - [ ] `npm run build`, `npm test`, PHP syntax, and appearance tests pass.
-- [ ] No `tests/integration.php` in source or ZIP.
+- [ ] Installable and source ZIP contents reviewed.
 - [ ] Reproducible ZIP hashes confirmed.
 - [ ] Clean staging installation, update, and removal verified.
 - [ ] All five screenshots match the current Vetra Theme name.

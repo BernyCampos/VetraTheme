@@ -22,7 +22,7 @@ Automated tests must never run against a production panel.
 | Packaging | Single root, no `meta`, no development dependencies or secrets, deterministic metadata |
 | PHP | Syntax check for `src`, `config`, `lang`, and `tests` |
 
-The blocked `tests/integration.php` is intentionally absent. The first Pelican Hub submission flagged that file, so the corrected GitHub workflow no longer clones Pelican or executes the removed harness.
+Live-panel integration is verified separately on a disposable staging installation.
 
 ## Browser scripts available for staging
 
@@ -58,8 +58,8 @@ They require `VETRA_URL`, `VETRA_EMAIL`, `VETRA_PASSWORD`, and optionally `VETRA
 - External accessibility and security audits.
 - Destructive native file and power operations under multiple subuser policies.
 - Long-running WebSocket, chart, and terminal sessions.
-- Final Pelican Hub review and approval.
+- Pelican Hub submission review.
 
 ## Release criterion
 
-Version 1.0.0 is an installable first release for the exact declared Pelican version. Marketplace copy must keep the limitations above visible and must not state that Pelican Hub approved the plugin until the exact submitted revision is accepted.
+Version 1.0.0 targets the exact Pelican version declared in `plugin.json`. Release notes must keep the pending validation items above visible.

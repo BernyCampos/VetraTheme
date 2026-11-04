@@ -37,19 +37,6 @@ Do not manually copy the package into Pelican core directories. The ZIP already 
 
 Use Pelican's normal plugin update flow and read the release notes first. The manifest points to the configured Pelican Hub update feed. Back up configuration and backgrounds before updating. Never replace files while queue jobs or PHP workers are actively loading a partial package.
 
-## Migration from `vetra-ui`
-
-Old development builds and Vetra Theme are separate plugin identities. Automatic migration is intentionally not performed.
-
-1. Record the old visual values and back up `.env`.
-2. Back up old background locations, including `storage/app/vetra-ui/background` and any plugin mirror.
-3. Disable the old plugin through Pelican.
-4. Install and enable `vetra-theme` normally.
-5. Re-enter settings or upload the background through the new form.
-6. Verify all three panels before removing the old plugin.
-
-Do not rename plugin directories or edit serialized plugin records. Old `VETRA_UI_*` variables are not read by Vetra Theme.
-
 ## Remove
 
 1. Restore defaults if you want environment-backed Vetra values reset.

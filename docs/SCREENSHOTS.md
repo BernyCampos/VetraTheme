@@ -18,7 +18,7 @@ Shows the Floating style, initial mode, navigation, density, ambient colors, rad
 
 ![Palettes and global notice](images/settings-notice.png)
 
-Shows the Vetra Theme preview, full-palette section, safe Markdown notice editor, and reset control. The screenshot uses the current **Vetra Theme** branding.
+Shows the Vetra Theme preview, full-palette section, safe Markdown notice editor, and reset control.
 
 ## Server console
 
