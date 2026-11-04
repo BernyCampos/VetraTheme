@@ -1,12 +1,13 @@
-{
+﻿{
   "id": "vetra-theme",
   "name": "VetraTheme",
-  "author": "Berny Campos",
+  "author": "BernyC",
   "version": "1.0.0",
   "description": "Ambient glass theme with readable native console, files and administration.",
   "category": "theme",
   "namespace": "Vetra\\Theme",
   "class": "VetraThemePlugin",
+  "update_url": "https://github.com/BernyCampos/VetraTheme/releases/latest/download/update.json",
   "panels": [
     "admin",
     "app",
