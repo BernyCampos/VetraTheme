@@ -1,61 +1,62 @@
-# Ficha para Pelican Hub
+# Pelican Hub listing
 
-## Nombre
+This file contains ready-to-paste English Marketplace copy. Do not claim approval until Pelican Hub approves the exact submitted version and commit.
 
-VetraTheme
+## Name
 
-## Categoría
+Vetra Theme
 
-Theme
+## Short description
 
-## Resumen corto
+Customizable glass theme for Pelican Panel with persistent palettes, safe background uploads, Markdown notices, and readable native server interfaces.
 
-Tema Glass configurable para Pelican Panel con fondos, paletas claro/oscuro, aviso Markdown seguro y superficies legibles para administración, consola y archivos.
+## Full description
 
-## Descripción
+Vetra Theme is an original appearance plugin for Pelican Panel. It adds balanced ambient lighting, translucent navigation, configurable surfaces, and accessible light/dark palettes while preserving Pelican and Filament behavior.
 
-VetraTheme transforma la presentación de Pelican Panel con iluminación ambiental azul, violeta y ámbar, navegación translúcida y superficies adaptables. Conserva las funciones, permisos y componentes nativos de Pelican y Filament: no reemplaza la consola, el gestor de archivos, las métricas ni los controles del servidor.
+Administrators can choose Glass, Solid, Floating, or Light Glass styles; configure 29 colors; adjust opacity, blur, radius, density, and navigation; upload a validated background; and publish a safe global Markdown notice. Settings use Pelican's supported plugin mechanisms and require no database migrations.
 
-El administrador puede elegir estilo Glass, Solid, Floating o claro; ajustar 29 colores; cambiar opacidad, blur, radios, densidad y navegación; subir un fondo; y publicar un aviso global con Markdown seguro. La configuración se guarda mediante los mecanismos oficiales del panel y no requiere migraciones.
+Vetra Theme does not replace the console, file manager, server metrics, permissions, or power actions. It styles the real native components already rendered by Pelican.
 
-## Características destacadas
+## Highlights
 
-- Soporte para `admin`, `app` y `server`.
-- Paletas claro/oscuro y estados nativos de Filament.
-- Fondos JPG, PNG, WebP, GIF, AVIF, BMP, ICO y SVG saneado.
-- Aviso global Markdown sin HTML activo.
-- Cabecera, recursos, consola y archivos con diseño coherente.
-- Botones de energía con SVG nativos y nombres accesibles.
-- Preferencias de reducción de movimiento, transparencia y alto contraste.
-- Sin telemetría, SQL, migraciones o dependencias Composer adicionales.
+- Supports Pelican `admin`, `app`, and `server` panels.
+- Four visual styles with separate light and dark palettes.
+- Persistent background upload from plugin settings.
+- Safe global Markdown notice without active HTML.
+- Coherent server header, six resource cards, console, and file manager.
+- Native SVG power buttons and accessible names.
+- Reduced-motion, reduced-transparency, focus, and high-contrast support.
+- English source interface with Spanish panel translation.
+- No telemetry, direct SQL, migrations, obfuscation, or extra Composer packages.
 
-## Requisitos
+## Requirements
 
 - Pelican Panel `1.0.0-rc.2`.
 - Plugin API 1.
-- PHP 8.4 y extensiones requeridas por Pelican.
-- Worker de cola activo durante instalación/actualización.
+- Queue worker active for installation and updates.
+- Modern browser.
 
-## Instalación
+## Installation
 
-Importa `vetra-theme-1.0.0.zip` desde **Administración → Plugins**, instala, activa el tema y guarda sus ajustes. No uses el paquete `-source.zip` como instalable.
+Import `vetra-theme-1.0.0.zip` from **Administration → Plugins**, wait for the queue, install, enable, and save the appearance settings. Do not use the `-source.zip` asset as the installable package.
 
-## Privacidad y red
+## Privacy and security
 
-La distribución no contiene telemetría, analítica, código ofuscado ni llamadas remotas ocultas. El feed de GitHub solo existe en builds de release que declaran expresamente un repositorio.
+The distribution has no telemetry, analytics, hidden remote calls, direct SQL, migrations, or obfuscated code. Uploads, paths, Markdown, colors, and numeric settings are validated. The only declared update endpoint is Pelican Hub's official `https://hub.pelican.dev/plugins/vetra-theme/update.json` feed.
 
-## Capturas sugeridas
+## Suggested screenshot order
 
-1. `docs/images/server-console.png` — Consola y recursos.
-2. `docs/images/file-manager.png` — Gestor de archivos.
-3. `docs/images/admin-eggs.png` — Administración.
-4. `docs/images/settings-appearance.png` — Ajustes principales.
-5. `docs/images/settings-notice.png` — Paletas y aviso.
+1. `docs/images/server-console.png` — main server experience.
+2. `docs/images/file-manager.png` — file manager integration.
+3. `docs/images/admin-eggs.png` — administration integration.
+4. `docs/images/settings-appearance.png` — primary appearance controls.
+5. `docs/images/settings-notice.png` — palettes and safe notice editor.
 
-## Soporte y limitaciones
+## Reviewer notes
 
-Compatibilidad verificada únicamente con Pelican `1.0.0-rc.2`. Otros temas o plugins que alteren navegación, tablas o consola pueden requerir validación conjunta. La aprobación del Marketplace corresponde a Pelican Hub y se realiza por versión.
-
-## Licencia
-
-MIT.
+- This is the first public version; documentation and code are presented in English.
+- Spanish is an optional locale translation layered through Pelican's translation system.
+- The formerly blocked `tests/integration.php` is not present and CI does not execute it.
+- Compatibility is claimed only for Pelican `1.0.0-rc.2`.
+- Marketplace approval remains per-version and is not implied by a successful GitHub workflow.

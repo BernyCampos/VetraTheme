@@ -6,8 +6,8 @@ const page = await context.newPage();
 const base = process.env.VETRA_URL || 'http://127.0.0.1:8765';
 async function settings() {
     await page.goto(base + '/admin/plugins', { waitUntil: 'networkidle' });
-    await page.getByRole('button', { name: 'Ajustes', exact: true }).click();
-    await page.getByText('Apariencia de VetraTheme', { exact: true }).waitFor();
+    await page.getByRole('button', { name: 'Settings', exact: true }).click();
+    await page.getByText('Vetra Theme appearance', { exact: true }).waitFor();
 }
 const results = [];
 try {
@@ -18,14 +18,14 @@ try {
         return canvas.toDataURL('image/webp').split(',')[1];
     }), 'base64');
     await writeFile('tests/fixtures/background.webp', webp);
-    await page.getByRole('button', { name: 'Cancelar', exact: true }).click();
+    await page.getByRole('button', { name: 'Cancel', exact: true }).click();
     const svg = Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"><rect width="16" height="16" fill="#739fe3"/></svg>');
     for (const [extension, mime, buffer] of [['gif', 'image/gif', await readFile('tests/fixtures/background.gif')], ['webp', 'image/webp', webp], ['svg', 'image/svg+xml', svg]]) {
         await settings();
         await page.locator('input[type=file]').setInputFiles({ name: `background.${extension}`, mimeType: mime, buffer });
         await expect(page.locator('.filepond--item[data-filepond-item-state="processing-complete"]')).toHaveCount(1, { timeout: 20000 });
-        await page.getByRole('button', { name: 'Enviar', exact: true }).click();
-        await page.getByText('Apariencia guardada', { exact: true }).waitFor({ timeout: 30000 });
+        await page.getByRole('button', { name: 'Submit', exact: true }).click();
+        await page.getByText('Appearance saved', { exact: true }).waitFor({ timeout: 30000 });
         await settings();
         const path = await page.locator('[id="mountedActionSchema0.background"]').inputValue();
         expect(path.endsWith(`.${extension}`)).toBeTruthy();
@@ -35,12 +35,12 @@ try {
         if (extension !== 'svg') expect(Buffer.compare(await response.body(), buffer)).toBe(0);
         else expect(await response.text()).toContain('<rect');
         results.push({ extension, path, status: response.status() });
-        await page.getByRole('button', { name: 'Cancelar', exact: true }).click();
+        await page.getByRole('button', { name: 'Cancel', exact: true }).click();
     }
     await settings();
     await page.locator('[id="mountedActionSchema0.restore_defaults"]').click();
-    await page.getByRole('button', { name: 'Enviar', exact: true }).click();
-    await page.getByText('Apariencia guardada', { exact: true }).waitFor();
+    await page.getByRole('button', { name: 'Submit', exact: true }).click();
+    await page.getByText('Appearance saved', { exact: true }).waitFor();
     await writeFile('test-results/upload-formats-report.json', JSON.stringify(results, null, 2));
     console.log('PASS: real GIF, WebP and SVG form uploads, persistence and image responses.');
 } catch (error) {

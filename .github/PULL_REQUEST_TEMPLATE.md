@@ -1,18 +1,18 @@
-## Resumen
+## Summary
 
-Describe el problema y la solución.
+Describe the problem and the solution.
 
-## Validación
+## Validation
 
 - [ ] `npm run build && npm test`
-- [ ] Sintaxis PHP
+- [ ] PHP syntax
 - [ ] `php tests/appearance.php`
-- [ ] Integración con la versión de Pelican declarada
-- [ ] Prueba visual cuando cambia la interfaz
+- [ ] Compatibility with the declared Pelican version
+- [ ] Visual test when the interface changes
 
-## Seguridad y compatibilidad
+## Security and compatibility
 
-- [ ] No modifica el núcleo de Pelican
-- [ ] Conserva las operaciones y permisos nativos
-- [ ] No añade telemetría o llamadas remotas ocultas
-- [ ] Actualiza documentación y changelog
+- [ ] Does not modify Pelican core
+- [ ] Preserves native operations and permissions
+- [ ] Does not add telemetry or hidden remote calls
+- [ ] Updates documentation and the changelog

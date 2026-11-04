@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'appearance' => 'Apariencia de VetraTheme',
+    'appearance' => 'Apariencia de Vetra Theme',
     'material' => 'Superficies y fondo',
     'style' => 'Estilo', 'mode' => 'Modo inicial', 'navigation' => 'Navegación',
     'mode_help' => 'El selector claro/oscuro de Pelican conserva la elección del usuario en este navegador.',
@@ -22,7 +22,7 @@ return [
     'reduce_motion' => 'Reducir transiciones decorativas', 'side_charts' => 'Gráficos nativos a la derecha en pantallas amplias',
     'notice' => 'Aviso global', 'notice_help' => 'Markdown: **negrita**, *cursiva*, [enlace](https://ejemplo.com), listas con - y saltos de línea. Hasta 2000 caracteres. Vacío lo desactiva. Visible para usuarios autenticados; no admite HTML ni imágenes.',
     'restore' => 'Restaurar la apariencia predeterminada al guardar',
-    'restore_help' => 'Reemplaza todos los ajustes globales de VetraTheme, incluido el aviso. No cambia las preferencias personales de Pelican.',
+    'restore_help' => 'Reemplaza todos los ajustes globales de Vetra Theme, incluido el aviso. No cambia las preferencias personales de Pelican.',
     'preview' => 'Muestra de color y superficie · sin guardar',
     'preview_text' => 'La terminal y el editor conservan su superficie legible.',
     'saved' => 'Apariencia guardada', 'reload' => 'Recarga la página para aplicar todos los cambios.',

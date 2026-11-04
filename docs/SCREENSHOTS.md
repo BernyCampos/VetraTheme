@@ -1,37 +1,37 @@
-# Capturas
+# Screenshots
 
-Las capturas documentan VetraTheme ejecutándose sobre Pelican Panel. Los servidores, archivos, métricas, nombres, plugins y acciones que aparecen pertenecen a la instalación capturada; Vetra únicamente modifica la presentación.
+These images show Vetra Theme running on Pelican Panel. Servers, files, metrics, names, plugins, and actions belong to the captured Pelican installation; Vetra Theme changes presentation only.
 
-## Administración
+## Administration
 
-![Listado administrativo de Eggs](images/admin-eggs.png)
+![Administration list](images/admin-eggs.png)
 
-Demuestra navegación administrativa, aviso global, cabecera, tabla, búsqueda, acciones e integración del fondo Glass.
+Shows native administration navigation, the global notice, page header, search, table, actions, and the glass background.
 
-## Ajustes principales
+## Appearance settings
 
-![Modal de ajustes principales](images/settings-appearance.png)
+![Main appearance controls](images/settings-appearance.png)
 
-Demuestra estilo Floating, modo inicial, navegación, densidad, colores ambientales, radio, ancho lateral y preferencias de movimiento/gráficos.
+Shows the Floating style, initial mode, navigation, density, ambient colors, radius, sidebar width, and motion/chart preferences.
 
-## Paletas y aviso
+## Palettes and notice
 
-![Paletas y aviso global](images/settings-notice.png)
+![Palettes and global notice](images/settings-notice.png)
 
-Demuestra la vista previa, la sección de paletas, el editor del aviso Markdown y la restauración de valores.
+Shows the Vetra Theme preview, full-palette section, safe Markdown notice editor, and reset control. The screenshot uses the current **Vetra Theme** branding.
 
-## Consola
+## Server console
 
-![Consola de servidor](images/server-console.png)
+![Server console](images/server-console.png)
 
-Demuestra cabecera del servidor, botones de energía con SVG nativos, seis recursos independientes, consola legible y navegación del panel `server`.
+Shows the real server header, native SVG power controls, six independent resource cards, readable terminal, global notice spacing, and `server` navigation.
 
-## Gestor de archivos
+## File manager
 
-![Gestor de archivos](images/file-manager.png)
+![File manager](images/file-manager.png)
 
-Demuestra barra de acciones, búsqueda, tabla, iconos y acciones nativas sobre una superficie translúcida.
+Shows native file actions, search, table, icons, and row actions on a translucent surface. No file operation is simulated by the theme.
 
-## Alcance
+## Evidence limits
 
-Estas imágenes son evidencia visual, no una certificación de todas las operaciones de Wings. La validación automatizada y las pruebas pendientes se detallan en [VALIDATION.md](VALIDATION.md).
+Screenshots document visual output, not every possible Wings operation, permission policy, browser, plugin combination, or server state. Automated checks and pending manual tests are listed in [VALIDATION.md](VALIDATION.md).

@@ -1,78 +1,72 @@
-# Solución de problemas
+# Troubleshooting
 
-## La instalación queda pendiente
+## Installation remains pending
 
-- Comprueba que el worker de cola de Pelican esté activo.
-- Revisa los trabajos fallidos y `storage/logs/laravel.log`.
-- Confirma que instalaste `vetra-theme-1.0.0.zip` y no `vetra-theme-1.0.0-source.zip`.
-- No vuelvas a importar repetidamente mientras la instalación continúa.
+- Confirm Pelican's queue worker is running.
+- Review failed queue jobs and `storage/logs/laravel.log`.
+- Confirm the installable ZIP has one `vetra-theme/` root.
+- Do not repeatedly import while a job is active.
 
-## El tema no aparece
+## The theme is installed but unchanged
 
-- Confirma que la carpeta se llama exactamente `vetra-theme`.
-- Revisa que la fila indique categoría **Tema**, versión `1.0.0` y estado **Activado**.
-- Desactiva cualquier otro tema.
-- Realiza una recarga completa y limpia únicamente las cachés siguiendo la documentación de Pelican.
+- Confirm the plugin row shows category **Theme**, version `1.0.0`, and enabled status.
+- Open Vetra Theme settings and submit once.
+- Fully reload the browser.
+- Rebuild only the caches required by your normal Pelican deployment.
+- Check that `dist/vetra.css` exists inside the installed plugin.
 
-## Los cambios no se aplican
+## Settings do not persist
 
-- Pulsa **Enviar** en los ajustes y espera la notificación de guardado.
-- Recarga completamente el navegador.
-- Comprueba que el proceso PHP puede actualizar el `.env` mediante el mecanismo oficial.
-- Si Pelican usa configuración cacheada, regenera esa caché con el procedimiento normal de tu despliegue.
+- Confirm the current account can update plugins.
+- Wait for the **Appearance saved** notification.
+- Check the panel log for environment write errors.
+- If configuration is cached, rebuild it with the normal deployment procedure.
 
-## No se puede subir el fondo
+## A background upload fails
 
-- Verifica el límite de 5 MB y 8192 × 8192 px.
-- Convierte HEIC, TIFF o PSD a PNG, JPG o WebP.
-- Confirma que `storage/app` sea escribible por el proceso del panel.
-- No es obligatorio que `plugins/vetra-theme/background` sea escribible; ese directorio es solo un espejo opcional.
-- Revisa el mensaje de validación y el registro del panel.
+- Keep the file under 5 MB and raster dimensions at or below 8192 × 8192.
+- Use JPEG, PNG, WebP, GIF, AVIF, BMP, ICO, or a simple SVG.
+- Convert HEIC, TIFF, or PSD first.
+- Confirm Pelican's `storage` is writable by the PHP process.
+- Read the validation message and panel log.
 
-## El fondo devuelve 404
+The optional `plugins/vetra-theme/background` mirror may remain empty when the plugin directory is read-only. That is not a failure if persistent storage and `/vetra-theme/background/...` work.
 
-- Guarda otra vez los ajustes.
-- Comprueba que el archivo exista en `storage/app/vetra-theme/background`.
-- Revisa que la ruta empiece por `/vetra-theme/background/` y contenga un nombre hexadecimal generado por el plugin.
-- Si existe una caché de rutas previa, límpiala o regénérala usando el procedimiento oficial del despliegue.
+## The background route returns 404
 
-## El aviso no muestra cierto HTML
+- Save settings again and verify the stored path begins with `/vetra-theme/background/`.
+- Confirm the referenced file exists under `storage/app/vetra-theme/background`.
+- Rebuild route cache using the deployment's normal procedure if routes were cached before installation.
 
-Es intencional. El aviso admite Markdown seguro, pero elimina HTML, imágenes, estilos, scripts, eventos e incrustaciones. Usa los elementos documentados en [CONFIGURATION.md](CONFIGURATION.md).
+## Markdown formatting disappears
 
-## El panel muestra HTTP 500
+This is intentional for unsafe content. The notice supports documented Markdown but removes raw HTML, images, styles, scripts, events, iframes, embeds, and unsafe URLs. See [CONFIGURATION.md](CONFIGURATION.md).
 
-1. Conserva las últimas líneas de `storage/logs/laravel.log`.
-2. En el `.env` del panel establece temporalmente:
+## HTTP 500 recovery
+
+1. Save the final relevant lines of `storage/logs/laravel.log`.
+2. Enable Pelican plugin safe mode in `.env`:
 
 ```env
 PANEL_PLUGIN_SAFE_MODE=true
 ```
 
-3. Si existe una configuración cacheada, elimina únicamente `bootstrap/cache/config.php` o regenera la caché según tu despliegue.
-4. Recarga Pelican. En modo seguro los plugins no se cargan.
-5. Desactiva VetraTheme desde la administración o, desde la raíz del panel, ejecuta:
+3. Rebuild configuration cache using your deployment's normal procedure.
+4. Disable Vetra Theme from administration when the panel opens.
+5. Verify the Pelican version and ZIP integrity before reinstalling.
+6. Set `PANEL_PLUGIN_SAFE_MODE=false` and rebuild configuration cache after recovery.
 
-```sh
-php artisan p:plugin:disable vetra-theme
-```
+Do not delete `storage`, the database, dependency lock files, or broad cache directories without a diagnosis and backup.
 
-6. Revisa la versión de Pelican, el log y la integridad del ZIP antes de reinstalar.
-7. Cuando el panel esté estable, establece `PANEL_PLUGIN_SAFE_MODE=false` y vuelve a regenerar la caché.
+## Native actions fail
 
-No elimines `storage`, la base de datos, `composer.json`, `composer.lock` ni el directorio completo de caché sin un diagnóstico y respaldo.
+Vetra Theme does not implement file operations, metrics, WebSockets, permissions, or power actions. Temporarily disable the theme to separate a presentation problem from Pelican, Wings, networking, or permissions. If the operation also fails without the theme, review Pelican/Wings logs and documentation.
 
-## La consola o los archivos no funcionan
+## Useful report details
 
-Vetra no implementa esas operaciones. Desactiva temporalmente el tema para distinguir un problema visual de un problema de Pelican, Wings, permisos o red. Si la operación también falla con el tema desactivado, consulta los registros y la documentación de Pelican/Wings.
-
-## Información para un reporte
-
-Incluye:
-
-- Versiones exactas de Pelican, Vetra, PHP y navegador.
-- Panel afectado: `admin`, `app` o `server`.
-- Pasos mínimos para reproducir.
-- Resultado esperado y resultado real.
-- Captura sin secretos.
-- Extracto relevante del log, eliminando tokens, claves, cookies, IP privadas y datos personales.
+- Vetra Theme and Pelican versions.
+- Affected panel and URL type, without secrets.
+- Browser and viewport.
+- Minimal reproduction steps.
+- Sanitized log lines and screenshot.
+- Whether the issue remains with Vetra Theme disabled.

@@ -8,28 +8,28 @@ const errors = [];
 page.on('pageerror', e => errors.push(e.message));
 const base = process.env.VETRA_URL || 'http://127.0.0.1:8765';
 const field = key => page.locator(`[id="mountedActionSchema0.${key}"]`);
-const markdown = '**Aviso global**\n\n- *Mantenimiento programado*\n- [Estado del servicio](https://example.com/status)\n\nConsulta los detalles antes de continuar.';
+const markdown = '**Global notice**\n\n- *Scheduled maintenance*\n- [Service status](https://example.com/status)\n\nReview the details before continuing.';
 const palette = { dark_page: '#142023', dark_surface: '#21343c', dark_sidebar: '#24313a', dark_topbar: '#293442', dark_text: '#f4eadf', dark_muted: '#bdcbd9', dark_border: '#89b7c7', dark_notice: '#24372f', dark_notice_accent: '#91c4a4', dark_input: '#20363d', dark_console: '#17242b', light_page: '#e8f1eb', light_surface: '#fffaf1', light_sidebar: '#f0f6f2', light_topbar: '#e2ece6', light_text: '#25352f', light_muted: '#486758', light_border: '#5b7d69', light_notice: '#eaf3ed', light_notice_accent: '#3b7056', light_input: '#fcfff9', light_console: '#18242b' };
 async function settings() {
     await page.goto(base + '/admin/plugins', { waitUntil: 'networkidle' });
-    await page.getByRole('button', { name: 'Ajustes', exact: true }).click();
-    await page.getByText('Apariencia de VetraTheme', { exact: true }).waitFor();
+    await page.getByRole('button', { name: 'Settings', exact: true }).click();
+    await page.getByText('Vetra Theme appearance', { exact: true }).waitFor();
 }
 async function save() {
-    await page.getByRole('button', { name: 'Enviar', exact: true }).click();
-    await page.getByText('Apariencia guardada', { exact: true }).waitFor({ timeout: 30000 });
+    await page.getByRole('button', { name: 'Submit', exact: true }).click();
+    await page.getByText('Appearance saved', { exact: true }).waitFor({ timeout: 30000 });
 }
 try {
     await settings();
     await field('notice').fill(markdown);
-    await page.getByText('Colores de todos los elementos del tema', { exact: true }).click();
+    await page.getByText('Colors for all theme elements', { exact: true }).click();
     for (const [key, value] of Object.entries(palette)) await field(key).fill(value);
     await page.locator('input[type=file]').setInputFiles('tests/fixtures/background.png');
     await expect(page.locator('.filepond--item[data-filepond-item-state="processing-complete"]')).toHaveCount(1, { timeout: 20000 });
     await save();
     await settings();
     await expect(field('notice')).toHaveValue(markdown);
-    await page.getByText('Colores de todos los elementos del tema', { exact: true }).click();
+    await page.getByText('Colors for all theme elements', { exact: true }).click();
     for (const [key, value] of Object.entries(palette)) await expect(field(key)).toHaveValue(value);
     const background = await field('background').inputValue();
     expect(background).toMatch(/^\/vetra-theme\/background\/[a-f0-9]{40}\.png$/);
@@ -38,13 +38,13 @@ try {
     expect(imageResponse.headers()['content-type']).toContain('image/png');
     expect(imageResponse.headers()['x-content-type-options']).toBe('nosniff');
     expect(Buffer.compare(await imageResponse.body(), await readFile('tests/fixtures/background.png'))).toBe(0);
-    await expect(page.locator('img[alt="Fondo actual"]')).toBeVisible();
-    await page.getByRole('button', { name: 'Cancelar', exact: true }).click();
+    await expect(page.locator('img[alt="Current background"]')).toBeVisible();
+    await page.getByRole('button', { name: 'Cancel', exact: true }).click();
     const server = (await readFile(process.env.VETRA_SERVER_PATH || '../.tools/server-path.txt', 'utf8')).trim();
     const layouts = [];
     for (const [panel, url] of [['admin', '/admin/plugins'], ['app', '/'], ['server', server]]) {
         await page.goto(base + url, { waitUntil: 'networkidle' });
-        await expect(page.locator('.vetra-notice strong')).toHaveText('Aviso global');
+        await expect(page.locator('.vetra-notice strong')).toHaveText('Global notice');
         await expect(page.locator('.vetra-notice li')).toHaveCount(2);
         for (const mode of ['dark', 'light']) {
             await page.evaluate(mode => window.Alpine.store('theme', mode), mode);
@@ -105,7 +105,7 @@ try {
     await save();
     await settings();
     await expect(field('notice')).toHaveValue('');
-    await page.getByText('Colores de todos los elementos del tema', { exact: true }).click();
+    await page.getByText('Colors for all theme elements', { exact: true }).click();
     await expect(field('dark_page')).toHaveValue('#111927');
     await expect(field('light_page')).toHaveValue('#e8edf5');
     await writeFile('test-results/customization-report.json', JSON.stringify({ background, layouts, errors, upload: true, markdown: true, palettePersistence: true, restored: true }, null, 2));

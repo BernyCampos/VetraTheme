@@ -1,87 +1,76 @@
-# Publicación
+# Release process
 
-## Preparar una release
+## Prepare
 
-1. Confirma que `plugin.json`, `package.json` y `package-lock.json` tienen la misma versión.
-2. Actualiza `CHANGELOG.md` y la documentación afectada.
-3. Ejecuta:
+1. Keep `plugin.json`, `package.json`, and `package-lock.json` on the same semantic version.
+2. Update `CHANGELOG.md` and affected documentation in English.
+3. Confirm `plugin.json` uses ID `vetra-theme`, name `Vetra Theme`, category `theme`, API 1, supported panels, exact tested Pelican version, and the Pelican Hub update URL.
+4. Confirm English and Spanish translation key structures match.
+5. Build and validate:
 
-```sh
+```bash
 npm ci
 npm run build
 npm test
 php tests/appearance.php
-php tests/integration.php /ruta/a/pelican-aislado
+python scripts/package.py --repository BernyCampos/VetraTheme
 ```
 
-4. Repite las pruebas visuales relevantes en staging.
-5. Genera los paquetes:
+Validate PHP syntax for all PHP files under `src`, `config`, `lang`, and `tests`.
 
-```sh
-python scripts/package.py --repository propietario/repositorio
-```
+## Artifacts
 
-## Artefactos
+- `vetra-theme-VERSION.zip` — installable package.
+- `vetra-theme-VERSION-source.zip` — source, tests, and workflow.
+- `SHA256SUMS` — SHA-256 values for both ZIPs.
+- `update.json` — release feed generated when `--repository` is present.
 
-El comando genera en `build/`:
+The installable ZIP must contain one `vetra-theme/` root, `plugin.json` without `meta`, compiled assets, documentation, and the GPL license. It must exclude secrets, `node_modules`, QA sessions, test results, and user backgrounds.
 
-- `vetra-theme-VERSION.zip`: paquete instalable.
-- `vetra-theme-VERSION-source.zip`: código fuente y pruebas.
-- `SHA256SUMS`: hashes de ambos paquetes.
-- `update.json`: feed de actualización cuando se define `--repository`.
-
-El ZIP instalable debe tener una sola carpeta raíz `vetra-theme/`, incluir `plugin.json` sin `meta` y excluir secretos, dependencias de desarrollo, sesiones, fondos de usuario y resultados QA.
+Build twice and compare the installable SHA-256 value. The packaging script fixes entry ordering, timestamps, and permissions to support reproducibility.
 
 ## GitHub Release
 
-1. Crea la etiqueta `vVERSION` desde el commit validado.
-2. Crea una release con título `VetraTheme VERSION`.
-3. Adjunta el ZIP instalable, el paquete fuente, `SHA256SUMS` y `update.json`.
-4. Publica notas derivadas del changelog, requisitos, limitaciones y pasos de actualización.
-5. Marca la primera versión estable como `latest` para que el feed `releases/latest/download/update.json` sea resoluble.
+1. Commit only reviewed source and generated `dist/vetra.css`; do not commit local credentials or test results.
+2. Push and wait for **Validate and package** to pass.
+3. Tag `vVERSION` from the exact reviewed commit.
+4. Create a release titled `Vetra Theme VERSION`.
+5. Upload both ZIPs, `SHA256SUMS`, and `update.json`.
+6. Publish notes based on the changelog, requirements, limitations, migration notes, and security behavior.
 
-El workflow incluido valida y genera artefactos, pero no publica automáticamente ni necesita tokens de publicación.
+CI intentionally does not clone Pelican or run the removed `tests/integration.php`. That file caused the first Hub submission block and must not be restored.
 
-## Feed de actualización
+## Update feed
 
-`scripts/package.py --repository owner/repo` añade `update_url` únicamente al manifiesto empaquetado. La fuente local permanece sin llamadas remotas.
+`plugin.json` declares Pelican Hub's official endpoint:
 
-El feed usa la versión exacta del panel:
-
-```json
-{
-  "1.0.0-rc.2": {
-    "version": "1.0.0",
-    "download_url": "https://github.com/owner/repo/releases/download/v1.0.0/vetra-theme-1.0.0.zip",
-    "sha256": "..."
-  }
-}
+```text
+https://hub.pelican.dev/plugins/vetra-theme/update.json
 ```
 
-No uses `*` hasta validar formalmente un rango de versiones.
+The repository release artifact `update.json` maps the exact Pelican version to the release download and SHA-256 checksum. It is generated for release verification; Pelican uses the manifest endpoint declared by the plugin.
 
-## Pelican Hub
+## Pelican Hub submission
 
-Antes de enviar:
+- Use category **Theme**.
+- Submit the exact commit that passed CI, not the previously rejected commit.
+- Use the English listing in [PELICAN_HUB.md](PELICAN_HUB.md).
+- Upload the installable ZIP and five supplied screenshots.
+- Declare GPL-3.0-only, supported Pelican version, support channel, limitations, and privacy behavior.
+- State that Spanish is a panel-locale translation, not the source language.
+- Confirm no telemetry, direct SQL, migrations, obfuscation, or hidden remote calls.
+- Verify the submitted revision no longer references commit `fb269f9adce6`; the corrected baseline was commit `4e73f6b` before the current language and branding work.
 
-- Confirma propiedad o licencias de código e imágenes.
-- Declara que no hay telemetría, ofuscación ni servicios remotos ocultos.
-- Selecciona categoría **Theme**.
-- Indica Pelican `1.0.0-rc.2` y Plugin API 1.
-- Sube el ZIP instalable y las capturas de `docs/images`.
-- Incluye licencia GPL-3.0, changelog, soporte, limitaciones y política de seguridad.
-- No declares aprobación hasta completar la revisión de cada versión.
+Publication requirements can change. Recheck the [official Pelican plugin documentation](https://pelican.dev/docs/panel/advanced/plugins/) and [Pelican Hub terms](https://hub.pelican.dev/tos) before submission.
 
-La ficha preparada está en [PELICAN_HUB.md](PELICAN_HUB.md). Los requisitos de publicación pueden cambiar; revisa siempre la [documentación oficial de plugins](https://pelican.dev/docs/panel/advanced/plugins/) y los [términos de Pelican Hub](https://hub.pelican.dev/tos) antes de enviar.
+## Checklist
 
-## Lista final
-
-- [ ] Pruebas PHP, Node e integración correctas.
-- [ ] CSS recompilado.
-- [ ] Capturas revisadas y sin secretos.
-- [ ] ZIP reproducible.
-- [ ] Hashes verificados.
-- [ ] Instalación limpia en staging.
-- [ ] Actualización y desinstalación verificadas.
-- [ ] Changelog y compatibilidad actualizados.
-- [ ] Release y feed apuntan a los mismos archivos.
+- [ ] English code, metadata, tests, documentation, and listing.
+- [ ] Spanish limited to `lang/es` runtime translation.
+- [ ] `npm run build`, `npm test`, PHP syntax, and appearance tests pass.
+- [ ] No `tests/integration.php` in source or ZIP.
+- [ ] Reproducible ZIP hashes confirmed.
+- [ ] Clean staging installation, update, and removal verified.
+- [ ] All five screenshots match the current Vetra Theme name.
+- [ ] GitHub Actions green on the submitted commit.
+- [ ] Hub submission points to the new commit.

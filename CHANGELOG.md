@@ -1,30 +1,35 @@
 # Changelog
 
-Todos los cambios relevantes de VetraTheme se documentarán aquí. El proyecto sigue [Semantic Versioning](https://semver.org/) y el formato de [Keep a Changelog](https://keepachangelog.com/).
+All notable Vetra Theme changes are documented here. The project follows [Semantic Versioning](https://semver.org/) and [Keep a Changelog](https://keepachangelog.com/).
 
-## [1.0.0] — 2026-11-03
+## [1.0.0] - 2026-11-04
 
-Primera publicación pública.
+First public release.
 
-### Añadido
+### Added
 
-- Tema Glass original para los paneles `admin`, `app` y `server` de Pelican.
-- Estilos Glass, Solid, Floating y modo claro con paletas independientes.
-- Configuración persistente de colores, opacidad, blur, radios, navegación, densidad y accesibilidad.
-- Subida de fondos JPG, PNG, WebP, GIF, AVIF, BMP, ICO y SVG saneado.
-- Aviso global con Markdown seguro y separación visual de la barra superior.
-- Cabecera de servidor, seis tarjetas de recursos independientes y botones de energía con SVG nativos.
-- Consola, gestor de archivos, tablas, formularios y modales integrados con el lenguaje visual del tema.
-- Disposición opcional de gráficos nativos a la derecha en pantallas amplias.
-- Traducciones en español e inglés.
-- Pruebas de apariencia, seguridad, integración Laravel/Filament y regresión visual en navegador.
-- Empaquetado reproducible, workflow de validación y preparación para GitHub Releases y Pelican Hub.
+- Original glass theme for Pelican's `admin`, `app`, and `server` panels.
+- Glass, Solid, Floating, and Light Glass styles.
+- Persistent controls for palettes, opacity, blur, radius, navigation, density, and accessibility.
+- Validated background upload with persistent Pelican storage and read-only delivery.
+- Safe global Markdown notice with responsive topbar spacing.
+- Server header, six independent resource cards, and native SVG power controls.
+- Readable console, editor, table, and form surfaces.
+- Optional right-side placement of native charts on wide screens.
+- English source language plus Spanish panel translation.
+- Deterministic packaging, GitHub Actions validation, and Pelican Hub release documentation.
 
-### Seguridad
+### Security
 
-- Sin SQL, migraciones, telemetría, código ofuscado ni llamadas remotas ocultas.
-- Autorización administrativa antes de persistir ajustes.
-- Saneamiento estricto de Markdown y SVG.
-- Almacenamiento persistente de fondos con nombres aleatorios y ruta pública de solo lectura.
-- CSS adicional cargado sin sustituir el tema fundamental de Filament ni modificar el núcleo.
+- No direct SQL, migrations, telemetry, analytics, obfuscated code, process execution, or hidden remote calls.
+- Administrative authorization is checked before settings are persisted.
+- Markdown, CSS values, paths, raster content, and SVG content are validated.
+- Uploaded backgrounds use random names and a constrained read-only route.
+- Filament's foundational theme remains intact; Vetra Theme adds scoped CSS only.
 
+### Publication corrections
+
+- Standardized all public branding as **Vetra Theme**.
+- Standardized code, metadata, tests, documentation, and Marketplace copy in English.
+- Kept Spanish only as a runtime translation selected by the panel locale.
+- Removed the blocked `tests/integration.php` and its CI execution after the first Pelican Hub review.

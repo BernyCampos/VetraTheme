@@ -1,73 +1,76 @@
-# Arquitectura
+# Architecture
 
-VetraTheme es un plugin de tema aditivo. Se integra mediante las APIs de plugins y los hooks de Filament que Pelican expone; no reemplaza vistas, controladores, recursos ni assets del núcleo.
+Vetra Theme is an additive Pelican theme plugin. It integrates through Pelican's plugin API and exposed Filament hooks; it does not replace core views, controllers, resources, assets, or operational features.
 
-## Estructura
+## Components
 
-| Ruta | Responsabilidad |
+| Path | Responsibility |
 | --- | --- |
-| `plugin.json` | Identidad, categoría `theme`, paneles y compatibilidad |
-| `src/VetraThemePlugin.php` | Registro del tema, hooks, colores, navegación y persistencia |
-| `src/Appearance.php` | Valores predeterminados, normalización y variables CSS |
-| `src/SettingsForm.php` | Formulario Filament y reglas de validación |
-| `src/Notice.php` | Renderizado y saneamiento del aviso Markdown |
-| `src/BackgroundImage.php` | Validación de contenido, tamaño, dimensiones y formato |
-| `src/SvgSanitizer.php` | Lista permitida para SVG sin red ni entidades |
-| `src/BackgroundStorage.php` | Copia persistente, espejo opcional y respuesta de imagen |
-| `src/Providers/BackgroundRouteServiceProvider.php` | Ruta GET pública y acotada para fondos |
-| `resources/views` | Fragmentos Blade registrados bajo `vetra-theme::` |
-| `resources/css/vetra.css` | Fuente CSS adicional |
-| `dist/vetra.css` | CSS compilado distribuido en el ZIP |
-| `tests` | Pruebas unitarias ligeras, integración y navegador |
+| `plugin.json` | Theme identity, supported panels, versions, and update URL |
+| `src/VetraThemePlugin.php` | Plugin registration, hooks, colors, navigation, and settings persistence |
+| `src/Appearance.php` | Defaults, normalization, environment mapping, and CSS variables |
+| `src/SettingsForm.php` | Filament settings schema and validation |
+| `src/Notice.php` | Markdown rendering and HTML sanitization |
+| `src/BackgroundImage.php` | Content, size, dimension, and format validation |
+| `src/BackgroundStorage.php` | Persistent storage and optional plugin-directory mirror |
+| `src/SvgSanitizer.php` | Strict SVG allowlist transformation |
+| `src/Providers/BackgroundRouteServiceProvider.php` | Constrained GET/HEAD route for stored backgrounds |
+| `resources/views` | Small hook fragments; no copied Pelican screens |
+| `resources/css/vetra.css` | Scoped source styles compiled to `dist/vetra.css` |
+| `lang/en`, `lang/es` | English source UI and Spanish locale translation |
 
-## Registro en los paneles
+## Pelican and Filament integration
 
-`VetraThemePlugin` implementa `Filament\Contracts\Plugin` y `App\Contracts\Plugins\HasPluginSettings`. El manifiesto declara `admin`, `app` y `server`.
+The plugin registers with API version 1 and declares category `theme`. It uses these rendering hooks:
 
-Se utilizan estos hooks:
+- `STYLES_AFTER` inserts normalized variables and compiled CSS after native styles.
+- `BODY_START` adds one fixed decorative ambient layer without pointer events.
+- `CONTENT_START` renders the global notice only when content exists.
+- `PAGE_HEADER_HEADING_AFTER` adds real server context on the console page.
 
-- `STYLES_AFTER`: inserta variables y CSS compilado después de los estilos nativos.
-- `BODY_START`: añade una capa ambiental fija, decorativa y sin eventos.
-- `CONTENT_START`: muestra el aviso global cuando tiene contenido.
-- `PAGE_HEADER_HEADING_AFTER`: añade contexto del servidor únicamente en la consola.
+It does not call `theme()` or `viteTheme()`. Requests read the packaged `dist/vetra.css`, so rendering does not depend on Pelican's Vite manifest.
 
-No se llama `theme()` ni `viteTheme()`. El CSS distribuido se lee desde `dist/vetra.css`, por lo que una petición no depende de resolver el manifiesto de Vite del panel.
+Navigation preferences use Filament configuration exposed by Pelican. The `app` panel keeps its native structure when a requested navigation component is unavailable.
 
-## Presentación
+## Presentation boundaries
 
-La capa ambiental usa tres gradientes y, opcionalmente, una imagen. Las superficies de Filament reciben color, alfa, radio y sombra, pero conservan su DOM, eventos y permisos.
+The terminal and editor keep solid readable surfaces. Vetra Theme does not recolor ANSI output, Monaco content, or canvas data. On wide screens, CSS may place charts that already exist on the right; it never invents metrics.
 
-La terminal y el editor se mantienen sólidos. Vetra no recolorea el canvas, los códigos ANSI ni el contenido de Monaco. En pantallas amplias, un selector CSS coloca a la derecha los gráficos que ya existen; si Pelican no los renderiza, no se crea información sustituta.
+The six console resources retain individual cards. Their grouping container is transparent and does not create a seventh frame. Native power buttons keep their Livewire actions and SVG icons; only spacing, color, and shape change.
 
-Los seis recursos de la consola conservan tarjetas individuales. El contenedor que los agrupa no añade una séptima superficie. Los botones de energía usan sus SVG y acciones Livewire originales; solo cambia su presentación.
+## Settings flow
 
-## Persistencia
+1. Pelican loads values through the plugin configuration/environment mechanism.
+2. `Appearance::normalize()` allowlists keys, formats, ranges, and colors.
+3. Filament renders translated labels from `vetra-theme::ui`.
+4. `saveSettings()` authorizes the plugin update again.
+5. A background upload, when present, is validated and stored.
+6. Normalized values are written through Pelican's supported environment writer.
+7. CSS variables are generated only from normalized values.
 
-Los ajustes se escriben mediante `EnvironmentWriterTrait::writeToEnvironment()` y claves `VETRA_THEME_*`. No existen tablas, migraciones ni un escritor de entorno propio.
+The notice is base64-encoded in the environment mapping so multiline Markdown remains a single valid value. Base64 is transport encoding, not encryption.
 
-El aviso se codifica en base64 para conservar Markdown multilínea dentro de una variable. Los colores y números se normalizan antes de convertirse en CSS. El formulario vuelve a validar y autorizar los datos en `saveSettings()`.
+## Background storage flow
 
-## Flujo de fondos
+1. Filament supplies a temporary `UploadedFile` without automatic permanent storage.
+2. `BackgroundImage` validates size, real content, dimensions, and format.
+3. Raster bytes are preserved; SVG is parsed and rebuilt from a graphical allowlist.
+4. A SHA-1-derived random-looking filename plus validated extension is generated.
+5. Bytes are written under `storage/app/vetra-theme/background`.
+6. An optional best-effort mirror is written under `plugins/vetra-theme/background` when already writable.
+7. Configuration stores `/vetra-theme/background/NAME`.
+8. A read-only route returns the persistent copy with an explicit MIME type, `nosniff`, CSP, and immutable caching.
 
-1. Filament entrega un `UploadedFile` temporal sin almacenarlo automáticamente.
-2. `BackgroundImage` valida tamaño, contenido y dimensiones.
-3. Los mapas de bits se preservan; los SVG pasan por `SvgSanitizer`.
-4. Se crea un nombre aleatorio de 40 caracteres hexadecimales.
-5. La copia autoritativa se escribe en `storage/app/vetra-theme/background`.
-6. Se intenta crear un espejo en `plugins/vetra-theme/background` sin alterar permisos.
-7. La configuración guarda una ruta `/vetra-theme/background/NOMBRE`.
-8. Una ruta GET/HEAD devuelve la copia persistente con MIME explícito, `nosniff`, CSP y caché inmutable.
+If settings persistence fails, a newly stored upload is rolled back. Removing a selected background clears the association but intentionally does not delete older files.
 
-Si el entorno no puede guardarse, la imagen recién subida se revierte. Quitar un fondo solo elimina su asociación, no los archivos previos.
+## Safe degradation
 
-## Degradación segura
+- Without `backdrop-filter`, opaque surface colors remain usable.
+- Without a background, ambient gradients remain active.
+- Without charts, no empty chart simulation appears.
+- If Markdown rendering fails, escaped plain text is returned.
+- If the plugin mirror is not writable, persistent Pelican storage remains authoritative.
 
-- Sin `backdrop-filter`, las superficies conservan color sólido.
-- Sin soporte completo de selectores modernos, Filament conserva su estructura funcional.
-- Si falla el renderizador Markdown, el aviso se muestra como texto escapado.
-- Si no puede registrarse la ruta opcional de fondos, el tema sigue arrancando sin esa imagen.
-- Un directorio de plugins de solo lectura no bloquea el almacenamiento persistente.
+## Non-goals
 
-## Límites
-
-Vetra no implementa métricas, WebSockets, controles de energía, operaciones de archivos, permisos, preferencias por usuario ni un editor alternativo. Esas funciones permanecen bajo Pelican y Wings.
+Vetra Theme does not implement authentication, permissions, metrics, WebSockets, power actions, file operations, user preferences, a terminal, or an editor. Those capabilities remain owned by Pelican and Wings.

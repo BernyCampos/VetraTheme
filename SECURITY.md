@@ -1,24 +1,24 @@
-# Política de seguridad
+# Security policy
 
-## Versiones soportadas
+## Supported versions
 
-| Versión | Soporte |
+| Version | Support |
 | --- | --- |
-| 1.0.x | Sí |
-| Versiones anteriores | No publicadas |
+| 1.0.x | Supported |
+| Earlier versions | Not publicly released |
 
-## Reportar una vulnerabilidad
+## Reporting a vulnerability
 
-Usa un canal privado del repositorio, como **GitHub Security Advisories**, o el canal privado que publique el mantenedor. No abras una incidencia pública con detalles explotables.
+Use a private repository channel such as **GitHub Security Advisories**, or another private channel published by the maintainer. Do not open a public issue containing exploitable details.
 
-Incluye:
+Include:
 
-- Versión de VetraTheme y Pelican.
-- Descripción e impacto.
-- Pasos mínimos para reproducir.
-- Prueba de concepto segura.
-- Mitigación sugerida, si existe.
+- Vetra Theme and Pelican versions.
+- A description and impact assessment.
+- Minimal reproduction steps.
+- A safe proof of concept.
+- A suggested mitigation, if available.
 
-No envíes tokens, cookies, claves, archivos `.env`, bases de datos o información personal. Se confirmará la recepción y se coordinará la divulgación después de disponer de una corrección.
+Do not send tokens, cookies, keys, `.env` files, databases, or personal information. The maintainer will acknowledge the report and coordinate disclosure after a fix is available.
 
-El modelo técnico de seguridad se documenta en [docs/SECURITY.md](docs/SECURITY.md).
+The technical model is documented in [docs/SECURITY.md](docs/SECURITY.md).

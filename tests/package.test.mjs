@@ -6,6 +6,7 @@ const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf
 const manifest = JSON.parse(read('plugin.json'));
 test('Pelican manifest, namespace and panels', () => {
     assert.equal(manifest.id, 'vetra-theme');
+    assert.equal(manifest.name, 'Vetra Theme');
     assert.equal(manifest.category, 'theme');
     assert.equal(manifest.api_version, 1);
     assert.equal(manifest.version, '1.0.0');
@@ -14,6 +15,7 @@ test('Pelican manifest, namespace and panels', () => {
     assert.ok(!('composer_packages' in manifest));
     assert.match(read('src/VetraThemePlugin.php'), /namespace Vetra\\Theme;/);
     assert.ok(!('meta' in manifest));
+    assert.equal(manifest.update_url, 'https://hub.pelican.dev/plugins/vetra-theme/update.json');
 });
 test('Plugin identifier, PHP namespace, routes and environment use the new theme identity', () => {
     assert.equal(manifest.id, 'vetra-theme');
@@ -66,4 +68,10 @@ test('Initial release documentation and screenshots are complete', () => {
     }
     const publicDocs = read('README.md') + read('CHANGELOG.md');
     assert.doesNotMatch(publicDocs, /0\.2\.[0-9]|0\.1\.0|RECOVERY\.md/i);
+    assert.doesNotMatch(publicDocs, /Vetra UI|VetraUI/);
+});
+test('Hub-blocked integration harness stays out of source and CI', () => {
+    assert.equal(existsSync(new URL('../tests/integration.php', import.meta.url)), false);
+    const workflow = read('.github/workflows/validate.yml');
+    assert.doesNotMatch(workflow, /tests\/integration\.php|Check locked Pelican integration/);
 });

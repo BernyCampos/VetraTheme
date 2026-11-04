@@ -1,50 +1,46 @@
-# Contribuir a VetraTheme
+# Contributing to Vetra Theme
 
-Gracias por mejorar VetraTheme. Los cambios deben conservar la seguridad, estabilidad y capacidad de actualización de Pelican.
+Thank you for improving Vetra Theme. Every change must preserve Pelican's security, stability, native permissions, and upgrade path.
 
-## Principios
+## Rules
 
-- No modificar ni copiar archivos del núcleo de Pelican.
-- Mantener el plugin como tema aditivo.
-- Conservar operaciones, permisos y componentes nativos.
-- No introducir SQL, migraciones, telemetría o servicios remotos sin una necesidad documentada y aprobación explícita.
-- Evitar selectores globales que puedan romper Filament.
-- Añadir pruebas para correcciones y comportamientos nuevos.
+- Do not modify, copy, or patch Pelican core files.
+- Use only the documented plugin API and Filament hooks exposed by the supported Pelican release.
+- Keep the theme additive; never simulate console, file, metric, or power operations.
+- Do not add direct SQL, migrations, telemetry, obfuscation, process execution, or hidden remote services.
+- Keep English as the source language. Add user-facing strings to `lang/en/ui.php`, then add matching translations such as `lang/es/ui.php`.
+- Add tests for fixes and new behavior.
+- Update documentation and the changelog in the same pull request.
 
-## Entorno
+## Local validation
 
-```sh
+```bash
 npm ci
 npm run build
 npm test
 php tests/appearance.php
 ```
 
-Para la integración se necesita una copia aislada de Pelican `1.0.0-rc.2` con dependencias instaladas:
+Validate PHP syntax for every file under `src`, `config`, `lang`, and `tests`. Browser scripts under `tests/browser*.mjs` require a disposable QA panel, never production.
 
-```sh
-php tests/integration.php /ruta/a/pelican-aislado
-```
+The repository must not restore `tests/integration.php` or a workflow step that clones Pelican and executes it. That file was removed after a Pelican Hub submission block. Compatibility work should be documented and tested in an isolated maintainer environment without shipping a blocked test harness.
 
-No ejecutes fixtures contra producción.
+## Style
 
-## Estilo de cambios
+- PHP uses `strict_types=1`, explicit types, and small responsibilities.
+- JavaScript, PHP comments, identifiers, tests, metadata, and documentation are written in English.
+- CSS stays scoped under Vetra selectors or documented Filament selectors.
+- English and Spanish translation arrays must have identical key structures.
+- Do not commit generated test sessions, credentials, user backgrounds, or `node_modules`.
 
-- PHP con `strict_types=1`, tipos explícitos y responsabilidades pequeñas.
-- CSS acotado bajo `body:has(#vetra-ambient)` o clases propias.
-- Traducciones con las mismas claves en español e inglés.
-- Sin secretos, datos reales o capturas no autorizadas.
-- Documentación y changelog actualizados en el mismo cambio.
+## Pull requests
 
-## Pull request
+Include:
 
-Incluye:
+- The problem and design decision.
+- Tests executed and their results.
+- Before/after screenshots for visual changes.
+- Compatibility and security impact.
+- Confirmation that Pelican core was not modified.
 
-- Problema resuelto.
-- Alcance y archivos modificados.
-- Riesgos de compatibilidad.
-- Pruebas ejecutadas.
-- Capturas antes/después para cambios visuales.
-- Confirmación de que no se modificó el núcleo.
-
-Los reportes de seguridad siguen [SECURITY.md](SECURITY.md), no las incidencias públicas.
+Report security issues privately as described in [SECURITY.md](SECURITY.md).

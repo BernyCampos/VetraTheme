@@ -1,131 +1,125 @@
-# VetraTheme
+# Vetra Theme
 
-Tema Glass configurable para **Pelican Panel 1.0.0-rc.2**, distribuido como plugin oficial de categoría `theme` y API 1.
+A configurable glass theme for **Pelican Panel 1.0.0-rc.2**, distributed through Pelican's official plugin system as a `theme` plugin using API version 1.
 
-[![Version](https://img.shields.io/badge/version-1.0.0-739fe3)](CHANGELOG.md)
-[![Pelican](https://img.shields.io/badge/Pelican-1.0.0--rc.2-9a86bc)](docs/COMPATIBILITY.md)
-[![License](https://img.shields.io/badge/license-GPL--3.0-2da44e)](LICENSE)
+Vetra Theme adds ambient lighting, translucent surfaces, and persistent appearance controls without replacing Filament's foundational CSS, modifying Pelican core, or recreating operational features. Console access, files, metrics, permissions, and power actions remain native Pelican features.
 
-VetraTheme añade iluminación ambiental, superficies translúcidas y personalización persistente sin sustituir el CSS fundamental de Filament, modificar el núcleo de Pelican ni recrear sus funciones. Consola, archivos, métricas, permisos y acciones de energía siguen perteneciendo al panel.
+## Highlights
 
-![Consola de servidor con VetraTheme](docs/images/server-console.png)
+- Glass, Solid, Floating, and Light Glass visual styles.
+- Native sidebar, topbar, or mixed navigation where Pelican exposes those layouts.
+- Separate light and dark palettes with 29 configurable colors.
+- Adjustable opacity, blur, radius, density, sidebar width, and background treatment.
+- Background image upload from plugin settings with validated persistent storage.
+- Safe global notice with Markdown, links, lists, and responsive spacing.
+- Server header, six independent resource cards, and native SVG power controls.
+- Readable solid surfaces for the console and editor.
+- Optional right-side layout for charts that Pelican actually renders.
+- English as the source language and Spanish as a panel-locale translation.
+- Reduced-motion, reduced-transparency, focus, and forced-color support.
 
-## Características
+## Screenshots
 
-- Compatibilidad visual con los paneles `admin`, `app` y `server`.
-- Estilos Glass, Solid, Floating y Light Glass.
-- Navegación lateral, superior o mixta mediante las APIs de Filament.
-- Paletas independientes para modo claro y oscuro.
-- 29 colores configurables para iluminación, superficies, navegación, textos, bordes, campos, avisos y estados.
-- Fondo configurable desde los ajustes: JPG, PNG, WebP, GIF, AVIF, BMP, ICO y SVG saneado.
-- Aviso global con Markdown seguro, enlaces permitidos y diseño adaptable.
-- Cabecera de servidor, tarjetas de recursos y botones de energía con iconos SVG nativos.
-- Consola y editor con superficies sólidas y legibles.
-- Gráficos nativos en columna lateral cuando Pelican realmente los proporciona.
-- Configuración persistente sin tablas, migraciones ni escrituras en el núcleo.
-- Español e inglés, foco visible, alto contraste y reducción de movimiento/transparencia.
+### Administration
 
-## Galería
+![Vetra Theme administration](docs/images/admin-eggs.png)
 
-### Administración
+### Appearance settings
 
-![Listado administrativo de Eggs](docs/images/admin-eggs.png)
+![Vetra Theme appearance settings](docs/images/settings-appearance.png)
 
-### Ajustes visuales
+![Theme palettes and global notice](docs/images/settings-notice.png)
 
-![Ajustes principales de VetraTheme](docs/images/settings-appearance.png)
+### Server console and files
 
-![Paletas y aviso global](docs/images/settings-notice.png)
+![Server console](docs/images/server-console.png)
 
-### Gestor de archivos
+![File manager](docs/images/file-manager.png)
 
-![Gestor de archivos con VetraTheme](docs/images/file-manager.png)
+See the [screenshot guide](docs/SCREENSHOTS.md) for the purpose and limits of each image.
 
-Consulta la [galería completa](docs/SCREENSHOTS.md) para conocer qué demuestra cada captura.
-
-## Requisitos
+## Requirements
 
 - Pelican Panel `1.0.0-rc.2`.
-- Plugin API 1.
-- PHP 8.4 con las extensiones exigidas por Pelican, incluidas DOM, Fileinfo y Mbstring.
-- Worker de cola de Pelican activo durante instalación y actualización.
-- Navegador moderno con soporte de `:has()` y `color-mix()` para el acabado completo.
+- PHP `8.4` or the version required by that Pelican release.
+- Pelican queue worker running while installing or updating plugins.
+- A browser with modern CSS support.
 
-La compatibilidad está acotada deliberadamente a la versión verificada. Consulta [COMPATIBILITY.md](docs/COMPATIBILITY.md) antes de usar otra versión.
+Compatibility is intentionally restricted to the tested release. Read [COMPATIBILITY.md](docs/COMPATIBILITY.md) before trying another version.
 
-## Instalación rápida
+## Installation
 
-1. Realiza una copia de seguridad del panel.
-2. Abre **Administración → Plugins → Importar**.
-3. Selecciona `vetra-theme-1.0.0.zip`.
-4. Pulsa **Instalar** y espera a que termine el trabajo de cola.
-5. Activa **VetraTheme**. Pelican solo debe tener un tema activo.
-6. Abre **Ajustes**, guarda la apariencia y recarga completamente la página.
+1. Download `vetra-theme-1.0.0.zip` from the release assets.
+2. Open **Administration → Plugins → Import**.
+3. Import the ZIP and wait for the queue job to finish.
+4. Install and enable Vetra Theme.
+5. Open the plugin settings, save the appearance, and fully reload the page.
 
-No copies archivos dentro de `app`, `resources`, `vendor` ni otros directorios del núcleo. La [guía de instalación](docs/INSTALLATION.md) incluye actualización, desinstalación y verificación.
+Do not copy files into Pelican's `app`, `resources`, `vendor`, or other core directories. The full [installation guide](docs/INSTALLATION.md) covers verification, updates, migration, and removal.
 
-## Configuración
+## Configuration and localization
 
-Los ajustes se administran desde **Administración → Plugins → VetraTheme → Ajustes**. Incluyen estilo, navegación, densidad, colores, opacidad, blur, radio, ancho lateral, fondo, aviso Markdown y preferencias de accesibilidad.
+Settings are available at **Administration → Plugins → Vetra Theme → Settings**. They include style, navigation, density, colors, opacity, blur, radius, sidebar width, background, safe Markdown notice, and accessibility preferences.
 
-Las imágenes se guardan de forma persistente en `storage/app/vetra-theme/background`. Cuando es posible se mantiene un espejo en `plugins/vetra-theme/background`; Vetra no cambia permisos del servidor. El fondo se sirve desde una ruta pública de solo lectura con nombre aleatorio y cabeceras restrictivas.
+English is the source language in code, metadata, tests, and documentation. Runtime labels use Pelican's translation system under `vetra-theme::ui`; `lang/es` supplies Spanish automatically when the panel locale is Spanish. The plugin does not force or override the user's locale.
 
-Consulta [CONFIGURATION.md](docs/CONFIGURATION.md) para ver todos los campos, formatos admitidos y comportamiento de restauración.
+Uploaded images are stored persistently in `storage/app/vetra-theme/background`. When possible, a mirror is kept in `plugins/vetra-theme/background`; Vetra Theme never changes server permissions. A read-only route serves the selected image with a random name and restrictive headers. Supported formats and limits are documented in [CONFIGURATION.md](docs/CONFIGURATION.md).
 
-## Migración de instalaciones anteriores
+## Migration from the former identity
 
-Esta edición cambia el identificador del plugin de `vetra-ui` a `vetra-theme`, el espacio de nombres de `Vetra\UI` a `Vetra\Theme` y el prefijo de configuración de `VETRA_UI_` a `VETRA_THEME_`. **Pelican los identifica como plugins distintos.** Si ya tenías una instalación anterior, respalda `.env` y las imágenes antes de desactivar el plugin antiguo. Revisa los pasos de migración manual en [Instalación](docs/INSTALLATION.md). No se migran automáticamente valores ni archivos.
+This release uses plugin ID `vetra-theme`, namespace `Vetra\Theme`, and environment prefix `VETRA_THEME_`. Older development builds used `vetra-ui`, `Vetra\UI`, and `VETRA_UI_`. **Pelican treats those IDs as different plugins.** Back up `.env` and background images before disabling an old build, then follow the manual steps in [INSTALLATION.md](docs/INSTALLATION.md). Settings and files are not migrated automatically.
 
-## Seguridad y privacidad
+## Security and privacy
 
-VetraTheme no contiene consultas SQL, migraciones, telemetría, analítica, código ofuscado ni llamadas remotas ocultas. El paquete local no declara `update_url`; solo se añade al generar expresamente una release vinculada a GitHub.
+Vetra Theme contains no direct SQL, migrations, telemetry, analytics, obfuscated code, process execution, or hidden remote calls.
 
-- Los ajustes requieren la política administrativa de actualización del plugin.
-- Markdown pasa por dos capas de saneamiento.
-- SVG usa una lista permitida, `LIBXML_NONET` y bloqueo de DTD, entidades, scripts, eventos y referencias remotas.
-- Las rutas de fondos aceptan únicamente nombres aleatorios con extensiones permitidas.
-- El CSS es adicional y no reemplaza el tema base de Filament.
+- Saving settings requires Pelican's administrative plugin-update authorization.
+- Colors, numbers, paths, Markdown, and uploads are validated before use.
+- Uploaded SVG files are parsed and reduced to an allowlist of safe graphical elements.
+- Background filenames are random and the public route is read-only.
+- The official Pelican Hub update URL is declared explicitly in `plugin.json`.
 
-Consulta [SECURITY.md](SECURITY.md) y [docs/SECURITY.md](docs/SECURITY.md) para el modelo de seguridad y la política de reportes.
+Read [SECURITY.md](SECURITY.md) and [docs/SECURITY.md](docs/SECURITY.md) for reporting instructions and the technical security model.
 
-## Documentación
+## Documentation
 
-| Documento | Contenido |
+| Guide | Contents |
 | --- | --- |
-| [Instalación](docs/INSTALLATION.md) | Importación, activación, actualización y desinstalación |
-| [Configuración](docs/CONFIGURATION.md) | Opciones visuales, fondos, colores y aviso Markdown |
-| [Capturas](docs/SCREENSHOTS.md) | Galería y alcance de la evidencia visual |
-| [Arquitectura](docs/ARCHITECTURE.md) | Integración, componentes, almacenamiento y límites |
-| [Seguridad](docs/SECURITY.md) | Superficies de ataque, validación y privacidad |
-| [Compatibilidad](docs/COMPATIBILITY.md) | Versiones, paneles, navegadores y dependencias visuales |
-| [Validación](docs/VALIDATION.md) | Pruebas ejecutadas y limitaciones conocidas |
-| [Solución de problemas](docs/TROUBLESHOOTING.md) | Cola, caché, fondos, errores 500 y modo seguro |
-| [Publicación](docs/RELEASE.md) | GitHub Releases, feed de actualización y Pelican Hub |
-| [Ficha de Hub](docs/PELICAN_HUB.md) | Texto, características y capturas para Marketplace |
-| [Contribuir](CONTRIBUTING.md) | Desarrollo, pruebas y pull requests |
+| [Installation](docs/INSTALLATION.md) | Import, enable, update, migrate, and remove |
+| [Configuration](docs/CONFIGURATION.md) | Visual options, backgrounds, colors, and Markdown |
+| [Screenshots](docs/SCREENSHOTS.md) | Visual evidence and its scope |
+| [Architecture](docs/ARCHITECTURE.md) | Hooks, components, storage, and boundaries |
+| [Security](docs/SECURITY.md) | Validation, attack surfaces, and privacy |
+| [Compatibility](docs/COMPATIBILITY.md) | Tested versions and browser behavior |
+| [Validation](docs/VALIDATION.md) | Automated checks and pending tests |
+| [Troubleshooting](docs/TROUBLESHOOTING.md) | Queue, cache, uploads, and recovery |
+| [Release](docs/RELEASE.md) | GitHub Releases, update feed, and Hub submission |
+| [Pelican Hub listing](docs/PELICAN_HUB.md) | English Marketplace copy and screenshots |
+| [Contributing](CONTRIBUTING.md) | Development rules and pull requests |
 
-## Desarrollo
+## Development
 
-```sh
+```bash
 npm ci
 npm run build
 npm test
 php tests/appearance.php
-php tests/integration.php /ruta/a/pelican-aislado
-python scripts/package.py
+python scripts/package.py --repository BernyCampos/VetraTheme
 ```
 
-El test de integración debe ejecutarse contra una copia aislada de Pelican con sus dependencias instaladas. Nunca uses una instancia de producción para desarrollar o ejecutar fixtures.
+The repository intentionally does not include the former `tests/integration.php`: Pelican Hub rejected that file during the first submission. CI validates the manifest, compiled assets, PHP syntax, security-focused appearance checks, documentation, and deterministic packages without cloning or modifying a panel.
 
-## Distribución
+## Distribution
 
-`scripts/package.py` genera dos paquetes reproducibles:
+The packaging script creates:
 
-- `vetra-theme-1.0.0.zip`: instalable en Pelican.
-- `vetra-theme-1.0.0-source.zip`: fuente, pruebas y herramientas de desarrollo.
+- `build/vetra-theme-1.0.0.zip` — installable plugin.
+- `build/vetra-theme-1.0.0-source.zip` — source, tests, and workflow.
+- `build/SHA256SUMS` — release checksums.
+- `build/update.json` — update feed when `--repository` is provided.
 
-El paquete instalable contiene una única carpeta raíz `vetra-theme`, manifiesto sin `meta`, recursos compilados, documentación y licencia. No incluye dependencias de desarrollo, secretos, sesiones de prueba ni fondos subidos por usuarios.
+The installable ZIP contains one `vetra-theme/` root, `plugin.json` without `meta`, compiled assets, documentation, and the license. It excludes development dependencies, secrets, test sessions, and user-uploaded backgrounds.
 
-## Licencia
+## License
 
-[GNU General Public License v3.0 (GPL-3.0-only)](LICENSE). Copyright © 2026 Berny Campos. VetraTheme es un proyecto independiente y no implica aprobación automática de Pelican Hub.
+[GNU General Public License v3.0 only](LICENSE). Copyright © 2026 Berny Campos. Vetra Theme is an independent project; repository publication does not imply Pelican Hub approval.

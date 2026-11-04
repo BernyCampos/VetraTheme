@@ -1,47 +1,47 @@
-name: Reporte de error
-description: Informa un problema reproducible de VetraTheme
+name: Bug report
+description: Report a reproducible Vetra Theme problem
 title: "[Bug]: "
 labels: [bug]
 body:
   - type: markdown
     attributes:
-      value: No publiques secretos. Para vulnerabilidades usa SECURITY.md.
+      value: Do not publish secrets. Use SECURITY.md for vulnerabilities.
   - type: input
     id: vetra
     attributes:
-      label: Versión de VetraTheme
+      label: Vetra Theme version
       placeholder: 1.0.0
     validations:
       required: true
   - type: input
     id: pelican
     attributes:
-      label: Versión de Pelican
+      label: Pelican version
       placeholder: 1.0.0-rc.2
     validations:
       required: true
   - type: dropdown
     id: panel
     attributes:
-      label: Panel afectado
-      options: [admin, app, server, ajustes, instalación]
+      label: Affected area
+      options: [admin, app, server, settings, installation]
     validations:
       required: true
   - type: textarea
     id: steps
     attributes:
-      label: Pasos para reproducir
-      description: Incluye el mínimo necesario.
+      label: Steps to reproduce
+      description: Include the smallest reproducible sequence.
     validations:
       required: true
   - type: textarea
     id: result
     attributes:
-      label: Resultado esperado y resultado real
+      label: Expected and actual result
     validations:
       required: true
   - type: textarea
     id: logs
     attributes:
-      label: Registros saneados
-      description: Elimina tokens, cookies, claves, IP privadas y datos personales.
+      label: Sanitized logs
+      description: Remove tokens, cookies, keys, private IP addresses, and personal data.

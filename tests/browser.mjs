@@ -35,10 +35,10 @@ try {
         console.log('Admin', (await page.locator('body').innerText()).slice(0, 2200));
         await page.screenshot({ path: 'test-results/02-admin-plugins.png', fullPage: true });
         await writeFile('test-results/admin.html', await page.content());
-        await page.getByRole('button', { name: 'Ajustes', exact: true }).click();
-        await page.getByText('Apariencia de VetraTheme', { exact: true }).waitFor();
+        await page.getByRole('button', { name: 'Settings', exact: true }).click();
+        await page.getByText('Vetra Theme appearance', { exact: true }).waitFor();
         await page.waitForTimeout(350);
-        console.log('SETTINGS', (await page.getByRole('dialog', { name: 'Ajustes', exact: true }).innerText()).slice(0, 2800));
+        console.log('SETTINGS', (await page.getByRole('dialog', { name: 'Settings', exact: true }).innerText()).slice(0, 2800));
         await page.screenshot({ path: 'test-results/03-settings.png', fullPage: true });
         await writeFile('test-results/settings.html', await page.content());
         await context.storageState({ path: 'test-results/session.json' });

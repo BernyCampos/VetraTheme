@@ -1,110 +1,73 @@
-# Configuración
+# Configuration
 
-VetraTheme se configura desde **Administración → Plugins → VetraTheme → Ajustes**. Los cambios son globales y requieren permiso administrativo para actualizar el plugin.
+Open **Administration → Plugins → Vetra Theme → Settings**. Changes are global and require administrative permission to update the plugin.
 
-![Ajustes principales](images/settings-appearance.png)
+![Main appearance settings](images/settings-appearance.png)
 
-## Apariencia
+## Appearance
 
-| Campo | Opciones / rango | Función |
+| Field | Options or range | Purpose |
 | --- | --- | --- |
-| Estilo | Glass, Solid, Floating, Light Glass | Define transparencia, navegación flotante y tratamiento general |
-| Modo inicial | Sistema, claro, oscuro | Valor inicial; el selector personal de Pelican conserva la elección del usuario |
-| Navegación | Preferencia de Pelican, lateral, superior, mixta | Usa la navegación nativa disponible en cada panel |
-| Densidad | Cómoda, compacta | Ajusta espaciado de tablas y cabeceras |
-| Radio | 8–28 px | Controla el redondeo de superficies |
-| Ancho lateral | 220–360 px | Ajusta la barra lateral donde existe |
-| Gráficos laterales | Activado/desactivado | Coloca gráficos nativos a la derecha en pantallas desde 1280 px |
-| Reducir transiciones | Activado/desactivado | Desactiva movimiento decorativo del tema |
+| Style | Glass, Solid, Floating, Light Glass | Surface transparency and navigation treatment |
+| Initial mode | System, Light, Dark | Initial value; Pelican's user selector keeps the browser choice |
+| Navigation | Pelican preference, Sidebar, Topbar, Mixed | Uses native components available in each panel |
+| Density | Comfortable, Compact | Table and header spacing |
+| Primary | Six-digit hex color | Buttons and upper/right ambient light |
+| Secondary | Six-digit hex color | Central ambient light |
+| Accent | Six-digit hex color | Lower/left ambient light |
+| Surface opacity | 65–100% | Card and navigation transparency |
+| Navigation blur | 0–40 px | Sidebar and topbar backdrop blur |
+| Corner radius | 8–28 px | Shared rounded corners |
+| Sidebar width | 220–320 px | Native sidebar width |
+| Native charts on right | On/off | Reflows existing charts at widths of 1280 px or greater |
+| Reduce transitions | On/off | Disables decorative motion |
 
-El panel `app` no recibe una barra lateral inventada: conserva su estructura nativa. La preferencia de navegación solo se aplica donde Pelican expone ese componente.
+The `app` panel never receives an invented sidebar. Navigation settings apply only where Pelican exposes the corresponding native component.
 
-## Colores
+## Full palettes
 
-Los tres colores ambientales principales son:
+Expand **Colors for all theme elements** to edit separate light and dark values for page, surface, sidebar, topbar, primary text, secondary text, border, global notice, notice accent, form inputs, and console frame. Status colors control success, warning, danger, and information elements.
 
-- **Primario:** botones, selección e iluminación superior/derecha.
-- **Secundario:** iluminación central.
-- **Acento:** iluminación inferior/izquierda.
+All colors must be six-digit hexadecimal values. Invalid values fall back to safe defaults and strings capable of CSS injection are rejected.
 
-Los estados `success`, `warning`, `danger` e `info` se entregan a `Panel::colors()` para que Filament genere sus paletas nativas.
+## Background images
 
-Las paletas claro y oscuro permiten configurar por separado:
+Upload through **Upload background image** and save. The selected file is validated before it becomes persistent.
 
-- Fondo de página.
-- Superficies.
-- Sidebar.
-- Topbar.
-- Texto principal y texto secundario.
-- Bordes.
-- Fondo y acento del aviso.
-- Marco de consola.
-- Campos de formulario.
-
-Todos los colores deben ser hexadecimales de seis dígitos. Los valores que puedan producir inyección CSS se rechazan.
-
-## Superficies y fondo
-
-| Campo | Rango | Función |
-| --- | --- | --- |
-| Opacidad | 65–100 % | Transparencia de tarjetas y navegación |
-| Blur de navegación | 0–40 px | Desenfoque de sidebar y topbar |
-| Blur de imagen | 0–30 px | Suavizado del fondo cargado |
-| Atenuación | 0–90 % | Oscurece el fondo para preservar legibilidad |
-
-### Subir una imagen
-
-1. Abre **Superficies y fondo**.
-2. Arrastra o selecciona una imagen.
-3. Pulsa **Enviar**.
-4. Recarga la página.
-
-Formatos admitidos:
-
-| Formato | Comportamiento |
+| Format | Handling |
 | --- | --- |
-| JPG / PNG | Bytes originales preservados después de validar el contenido |
-| WebP / GIF | Preservados; los GIF animados no se convierten |
-| AVIF / BMP / ICO | Admitidos cuando PHP reconoce correctamente el contenido |
-| SVG | Analizado y reescrito mediante una lista gráfica permitida |
+| JPEG, PNG | Original validated bytes preserved |
+| WebP, GIF | Original validated bytes preserved; animated GIF remains animated |
+| AVIF, BMP, ICO | Original validated bytes preserved when PHP recognizes the content |
+| SVG | Parsed and rebuilt from a strict graphical allowlist |
 
-Límites: 5 MB y hasta 8192 × 8192 píxeles para mapas de bits. HEIC, TIFF y PSD deben convertirse antes.
+Limits are 5 MB and 8192 × 8192 pixels for raster images. Convert HEIC, TIFF, and PSD first. A valid upload is stored in `storage/app/vetra-theme/background` and exposed as `/vetra-theme/background/<random-name>`. The optional path field accepts only safe absolute local image paths; remote URLs, query strings, traversal, and direct SVG paths are rejected.
 
-La copia persistente se guarda en `storage/app/vetra-theme/background`. El espejo `plugins/vetra-theme/background` es opcional y nunca se fuerza cambiando permisos. La ruta almacenada usa un nombre aleatorio y no revela el nombre original.
+**Remove the background when saving** clears the selected image and returns to ambient colors. Previous files remain in storage to avoid destructive data loss.
 
-**Quitar fondo** desasocia la imagen al guardar. No elimina archivos previos automáticamente, para evitar pérdida de datos.
+## Safe global notice
 
-## Aviso global
+![Global notice and palettes](images/settings-notice.png)
 
-![Aviso global y paletas](images/settings-notice.png)
+The notice accepts up to 2,000 characters of Markdown. Supported output includes headings, bold, italic, strike-through, lists, quotes, code, line breaks, and `https`, `http`, or `mailto` links.
 
-El aviso admite hasta 2000 caracteres de Markdown:
+Raw HTML, images, styles, event attributes, scripts, embedded content, and unsafe URL schemes are removed. The notice appears only to authenticated panel users. Empty content disables it. The notice has a responsive gap below the topbar so it does not touch navigation.
 
-```md
-## Mantenimiento programado
+Example:
 
-- Inicio: 22:00
-- Consulta el [estado del servicio](https://ejemplo.com/estado).
+```markdown
+## Scheduled maintenance
+
+- Starts at **22:00 UTC**
+- Follow [service status](https://example.com/status)
 ```
 
-Se permiten encabezados, negrita, cursiva, tachado, listas, citas, código y enlaces `https`, `http` o `mailto`. HTML crudo, imágenes, estilos, eventos, scripts, esquemas inseguros e incrustaciones se eliminan.
+The environment value `VETRA_THEME_NOTICE_MARKDOWN` uses base64 to keep multiline text on one line. Do not place secrets in a notice.
 
-El contenido se almacena en `VETRA_THEME_NOTICE_MARKDOWN` codificado en base64 para mantener una sola línea válida dentro del archivo de entorno. Base64 no es cifrado; no introduzcas secretos.
+## Reset
 
-## Restaurar valores
+Enable **Restore default appearance when saving** and submit. This restores all global Vetra Theme values, including the notice. It does not alter personal Pelican theme preferences and it does not delete uploaded files.
 
-Activa **Restaurar la apariencia predeterminada al guardar** y pulsa **Enviar**. Se restauran todos los valores globales de Vetra, incluido el aviso y la asociación del fondo. No se modifican las preferencias personales de tema, consola o editor administradas por Pelican.
+## Locale behavior
 
-## Variables persistentes
-
-Todas las claves usan el prefijo `VETRA_THEME_`. Las principales son:
-
-- `VETRA_THEME_STYLE`, `VETRA_THEME_MODE`, `VETRA_THEME_NAVIGATION`, `VETRA_THEME_DENSITY`.
-- `VETRA_THEME_PRIMARY`, `VETRA_THEME_SECONDARY`, `VETRA_THEME_ACCENT`.
-- `VETRA_THEME_OPACITY`, `VETRA_THEME_BLUR`, `VETRA_THEME_RADIUS`, `VETRA_THEME_SIDEBAR_WIDTH`.
-- `VETRA_THEME_BACKGROUND`, `VETRA_THEME_BACKGROUND_BLUR`, `VETRA_THEME_BACKGROUND_DIM`.
-- `VETRA_THEME_SIDE_CHARTS`, `VETRA_THEME_REDUCE_MOTION`.
-- `VETRA_THEME_NOTICE_MARKDOWN`.
-- Variables de paleta `VETRA_THEME_LIGHT_*` y `VETRA_THEME_DARK_*`.
-
-Los ajustes deben guardarse desde el formulario. Editar manualmente el `.env` requiere limpiar la caché de configuración y queda bajo responsabilidad del administrador.
+English (`lang/en`) is the source UI. Spanish (`lang/es`) is loaded automatically through Pelican's plugin translation namespace when the panel locale is Spanish. Vetra Theme does not set, store, or override the panel locale.

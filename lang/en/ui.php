@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'appearance' => 'VetraTheme appearance', 'material' => 'Surfaces and background',
+    'appearance' => 'Vetra Theme appearance', 'material' => 'Surfaces and background',
     'style' => 'Style', 'mode' => 'Initial mode', 'navigation' => 'Navigation',
     'mode_help' => 'The native Pelican light/dark selector preserves the user choice in this browser.',
     'density' => 'Density', 'primary' => 'Blue · primary', 'secondary' => 'Violet · central light', 'accent' => 'Amber · lower light',
@@ -20,7 +20,7 @@ return [
     'reduce_motion' => 'Reduce decorative transitions', 'side_charts' => 'Native charts on the right on wide screens',
     'notice' => 'Global notice', 'notice_help' => 'Markdown: **bold**, *italic*, [link](https://example.com), lists using - and line breaks. Up to 2000 characters. Empty disables it. For signed-in users; HTML and images are not allowed.',
     'restore' => 'Restore default appearance when saving',
-    'restore_help' => 'Replaces all global VetraTheme settings including the notice. Does not change personal Pelican preferences.',
+    'restore_help' => 'Replaces all global Vetra Theme settings including the notice. Does not change personal Pelican preferences.',
     'preview' => 'Color and surface sample · unsaved', 'preview_text' => 'The terminal and editor keep their readable surfaces.',
     'saved' => 'Appearance saved', 'reload' => 'Reload the page to apply all changes.',
     'palette' => 'Colors for all theme elements',

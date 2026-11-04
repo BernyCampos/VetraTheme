@@ -25,9 +25,20 @@ $check($s['radius'] === 16 && $s['primary'] === '#739fe3' && $s['style'] === 'gl
 $check($s['reduce_motion'] === false && !array_key_exists('unknown', $s), 'Boolean and key allowlist');
 $check(str_contains(Appearance::css(['style' => 'solid']), '--vetra-opacity:1;--vetra-blur:0px'), 'Solid must be opaque without blur');
 $check(!str_contains(Appearance::css(['notice' => '</style><script>x</script>']), '<'), 'Notice must never enter CSS');
-$check(mb_strlen(Appearance::normalize(['notice' => str_repeat('á', 2100)])['notice']) === 2000, 'UTF-8 length bound');
+$check(mb_strlen(Appearance::normalize(['notice' => str_repeat('界', 2100)])['notice']) === 2000, 'UTF-8 length bound');
 $check(Appearance::normalize(['notice' => "line1\r\nline2\x00"])['notice'] === "line1\nline2", 'Markdown line breaks preserved, controls removed');
 $en = require dirname(__DIR__) . '/lang/en/ui.php';
 $es = require dirname(__DIR__) . '/lang/es/ui.php';
-$check(array_keys($en) === array_keys($es), 'Translations must have matching keys');
+$translationKeys = static function (array $values, string $prefix = '') use (&$translationKeys): array {
+    $keys = [];
+    foreach ($values as $key => $value) {
+        $path = $prefix === '' ? (string) $key : $prefix . '.' . $key;
+        $keys[] = $path;
+        if (is_array($value)) {
+            array_push($keys, ...$translationKeys($value, $path));
+        }
+    }
+    return $keys;
+};
+$check($translationKeys($en) === $translationKeys($es), 'Translations must have matching nested keys');
 echo "PASS: $checks appearance/security checks\n";

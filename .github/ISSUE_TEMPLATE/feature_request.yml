@@ -1,31 +1,31 @@
-name: Solicitud de función
-description: Propón una mejora compatible con el alcance de un tema
+name: Feature request
+description: Suggest an improvement that fits a theme plugin
 title: "[Feature]: "
 labels: [enhancement]
 body:
   - type: textarea
     id: problem
     attributes:
-      label: Problema o necesidad
+      label: Problem or need
     validations:
       required: true
   - type: textarea
     id: proposal
     attributes:
-      label: Propuesta
-      description: Explica cómo conserva las funciones y permisos nativos de Pelican.
+      label: Proposal
+      description: Explain how it preserves Pelican's native features and permissions.
     validations:
       required: true
   - type: textarea
     id: alternatives
     attributes:
-      label: Alternativas consideradas
+      label: Alternatives considered
   - type: checkboxes
     id: scope
     attributes:
-      label: Alcance
+      label: Scope
       options:
-        - label: La propuesta no requiere modificar el núcleo de Pelican.
+        - label: The proposal does not require changes to Pelican core.
           required: true
-        - label: La propuesta no simula una función operativa.
+        - label: The proposal does not simulate an operational feature.
           required: true

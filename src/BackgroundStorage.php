@@ -42,7 +42,7 @@ final class BackgroundStorage
             // allow it. Never chmod or mutate panel permissions.
             $this->pluginMirror->put($filename, $bytes);
         } catch (Throwable $exception) {
-            Log::warning('VetraTheme could not mirror a background into the plugin directory; using the durable panel storage copy.', [
+            Log::warning('Vetra Theme could not mirror a background into the plugin directory; using the durable panel storage copy.', [
                 'exception' => $exception,
             ]);
         }

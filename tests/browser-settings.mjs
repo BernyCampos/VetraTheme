@@ -8,27 +8,27 @@ page.on('pageerror', e => errors.push(e.message));
 const base = process.env.VETRA_URL || 'http://127.0.0.1:8765';
 async function settings() {
     await page.goto(base + '/admin/plugins', { waitUntil: 'networkidle' });
-    await page.getByRole('button', { name: 'Ajustes', exact: true }).click();
-    await page.getByText('Apariencia de VetraTheme', { exact: true }).waitFor();
+    await page.getByRole('button', { name: 'Settings', exact: true }).click();
+    await page.getByText('Vetra Theme appearance', { exact: true }).waitFor();
     await page.waitForTimeout(350);
 }
 try {
     await settings();
     await page.locator('[id="mountedActionSchema0.opacity"]').fill('86');
-    await page.locator('[id="mountedActionSchema0.notice"]').fill('QA: configuración persistida · sin Wings conectado');
-    await page.getByRole('button', { name: 'Enviar', exact: true }).click();
-    await page.getByText('Apariencia guardada', { exact: true }).waitFor();
+    await page.locator('[id="mountedActionSchema0.notice"]').fill('QA: persistent settings · no Wings connection');
+    await page.getByRole('button', { name: 'Submit', exact: true }).click();
+    await page.getByText('Appearance saved', { exact: true }).waitFor();
     await settings();
     await expect(page.locator('[id="mountedActionSchema0.opacity"]')).toHaveValue('86');
-    await expect(page.locator('[id="mountedActionSchema0.notice"]')).toHaveValue('QA: configuración persistida · sin Wings conectado');
+    await expect(page.locator('[id="mountedActionSchema0.notice"]')).toHaveValue('QA: persistent settings · no Wings connection');
     await page.screenshot({ path: 'test-results/03-settings.png', fullPage: true });
     await page.locator('[id="mountedActionSchema0.restore_defaults"]').click();
-    await page.getByRole('button', { name: 'Enviar', exact: true }).click();
-    await page.getByText('Apariencia guardada', { exact: true }).waitFor();
+    await page.getByRole('button', { name: 'Submit', exact: true }).click();
+    await page.getByText('Appearance saved', { exact: true }).waitFor();
     await settings();
     await expect(page.locator('[id="mountedActionSchema0.opacity"]')).toHaveValue('82');
     await expect(page.locator('[id="mountedActionSchema0.notice"]')).toHaveValue('');
-    await page.getByRole('button', { name: 'Cancelar', exact: true }).click();
+    await page.getByRole('button', { name: 'Cancel', exact: true }).click();
     console.log('PASS: settings saved, survived reload and restored');
     const path = (await readFile(process.env.VETRA_SERVER_PATH || '../.tools/server-path.txt', 'utf8')).trim();
     for (const [name, url] of [['servers', '/'], ['console', path]]) {
