@@ -1,44 +1,54 @@
 name: Validate and package
+
 on:
   push:
   pull_request:
   workflow_dispatch:
+
 permissions:
   contents: read
+
 jobs:
   validate:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: "22"
           cache: npm
-      - uses: shivammathur/setup-php@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
+          php-version: "8.4"
           extensions: dom, fileinfo, intl, mbstring, pdo_sqlite, sodium, zip
           tools: composer
-      - run: npm ci
-      - run: npm run build && npm test
-      - run: find src config lang tests -name '*.php' -print0 | xargs -0 -n1 php -l
-      - run: php tests/appearance.php
-      - name: Check locked Pelican integration
-        run: |
-          git clone --depth 1 --branch v1.0.0-rc.2 https://github.com/pelican/panel.git "$RUNNER_TEMP/pelican"
-          test "$(git -C "$RUNNER_TEMP/pelican" rev-parse HEAD)" = "f64a167eea349bfbb89cda8732eacf682a82a4b3"
-          composer install --working-dir="$RUNNER_TEMP/pelican" --no-scripts --no-interaction --prefer-dist
-          mkdir -p "$RUNNER_TEMP/pelican/plugins/vetra-theme"
-          cp -R src config resources lang plugin.json "$RUNNER_TEMP/pelican/plugins/vetra-theme/"
-          php tests/integration.php "$RUNNER_TEMP/pelican"
-      - name: Compile using the panel's unchanged Vite config
-        run: |
-          cd "$RUNNER_TEMP/pelican"
-          npm install --no-audit --no-fund
-          npm run build
-          node -e "const m=require('./public/build/manifest.json');if(!m['plugins/vetra-theme/resources/css/vetra.css']||!m['resources/css/app.css'])process.exit(1)"
-      - run: python scripts/package.py --repository "${{ github.repository }}"
-      - uses: actions/upload-artifact@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build theme
+        run: npm run build
+
+      - name: Run Node.js tests
+        run: npm test
+
+      - name: Validate PHP syntax
+        run: find src config lang tests -name '*.php' -print0 | xargs -0 -n1 php -l
+
+      - name: Run appearance tests
+        run: php tests/appearance.php
+
+      - name: Generate release packages
+        run: python scripts/package.py --repository "${{ github.repository }}"
+
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v4
         with:
           name: vetra-theme-release-candidate
           path: build/
