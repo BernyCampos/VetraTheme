@@ -7,7 +7,7 @@
   "category": "theme",
   "namespace": "Vetra\\Theme",
   "class": "VetraThemePlugin",
-  "update_url": "https://hub.pelican.dev/plugins/vetra-theme/update.json ",
+  "update_url": "https://hub.pelican.dev/plugins/vetra-theme/update.json",
   "panels": [
     "admin",
     "app",
