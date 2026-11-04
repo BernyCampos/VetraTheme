@@ -8,7 +8,7 @@ from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 
 ROOT = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
-parser.add_argument('--repository', help='GitHub owner/repo; enables release update feed')
+parser.add_argument('--repository', help='GitHub owner/repo; enables release download feed')
 args = parser.parse_args()
 if args.repository and not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', args.repository):
     parser.error('repository must be owner/repo')
@@ -22,9 +22,7 @@ assert manifest['version'] == json.loads((ROOT / 'package.json').read_text())['v
 assert (ROOT / 'dist/vetra.css').is_file(), 'Run npm run build first'
 version = manifest['version']
 assert re.fullmatch(r'\d+\.\d+\.\d+(?:-[a-zA-Z0-9.-]+)?', version)
-
-if args.repository:
-    manifest['update_url'] = f'https://github.com/{args.repository}/releases/latest/download/update.json'
+assert manifest['update_url'] == 'https://hub.pelican.dev/plugins/vetra-theme/update.json'
 
 output = ROOT / 'build'
 output.mkdir(exist_ok=True)
@@ -69,6 +67,5 @@ if args.repository:
     }}
     (output / 'update.json').write_text(json.dumps(feed, indent=2) + '\n', encoding='utf-8')
 elif (output / 'update.json').exists():
-    # Never leave a stale release feed beside a local-only archive.
     (output / 'update.json').unlink()
 print(f'{archive.name}: {len(payload)} files, {archive.stat().st_size} bytes, SHA256 {digest}')
