@@ -2,7 +2,7 @@
   "id": "vetra-theme",
   "name": "Vetra Theme",
   "author": "BernyC",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Ambient glass theme with readable native console, files and administration.",
   "category": "theme",
   "namespace": "Vetra\\Theme",
@@ -13,6 +13,6 @@
     "app",
     "server"
   ],
-  "panel_version": "1.0.0-rc.2",
+  "panel_version": "1.0.0-rc.3",
   "api_version": 1
 }

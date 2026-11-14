@@ -21,8 +21,6 @@ final class SettingsForm
     {
         $rules = [
             'style' => 'required|in:glass,solid,floating',
-            'mode' => 'required|in:dark,light,system',
-            'navigation' => 'required|in:native,sidebar,topbar,mixed',
             'density' => 'required|in:comfortable,compact',
             'reduce_motion' => 'required|boolean',
             'side_charts' => 'required|boolean',
@@ -34,7 +32,7 @@ final class SettingsForm
         foreach (array_keys(Appearance::COLORS) as $key) {
             $rules[$key] = ['required', 'regex:/\A#[0-9a-fA-F]{6}\z/'];
         }
-        foreach (['opacity' => [65, 100], 'blur' => [0, 28], 'background_blur' => [0, 24], 'background_dim' => [25, 85], 'radius' => [4, 24], 'sidebar_width' => [220, 300]] as $key => [$min, $max]) {
+        foreach (['opacity' => [65, 100], 'blur' => [0, 28], 'background_blur' => [0, 24], 'background_dim' => [25, 85], 'radius' => [4, 24]] as $key => [$min, $max]) {
             $rules[$key] = "required|integer|min:$min|max:$max";
         }
 
@@ -76,14 +74,11 @@ final class SettingsForm
         return [
             Section::make(trans('vetra-theme::ui.appearance'))->columns(2)->schema([
                 $select('style', ['glass', 'solid', 'floating']),
-                $select('mode', ['dark', 'light', 'system'])->helperText(trans('vetra-theme::ui.mode_help')),
-                $select('navigation', ['native', 'sidebar', 'topbar', 'mixed']),
                 $select('density', ['comfortable', 'compact']),
                 ColorPicker::make('primary')->label(trans('vetra-theme::ui.primary'))->hex()->required()->live(onBlur: true),
                 ColorPicker::make('secondary')->label(trans('vetra-theme::ui.secondary'))->hex()->required()->live(onBlur: true),
                 ColorPicker::make('accent')->label(trans('vetra-theme::ui.accent'))->hex()->required()->live(onBlur: true),
                 $number('radius', 4, 24),
-                $number('sidebar_width', 220, 300),
                 Toggle::make('side_charts')->label(trans('vetra-theme::ui.side_charts')),
                 Toggle::make('reduce_motion')->label(trans('vetra-theme::ui.reduce_motion')),
             ]),

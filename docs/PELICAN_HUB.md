@@ -14,13 +14,13 @@ Customizable glass theme for Pelican Panel with persistent palettes, safe backgr
 
 Vetra Theme is an original appearance plugin for Pelican Panel. It adds balanced ambient lighting, translucent navigation, configurable surfaces, and accessible light/dark palettes while preserving Pelican and Filament behavior.
 
-Administrators can choose Glass, Solid, Floating, or Light Glass styles; configure 29 colors; adjust opacity, blur, radius, density, and navigation; upload a validated background; and publish a safe global Markdown notice. Settings use Pelican's supported plugin mechanisms and require no database migrations.
+Users select Vetra through Pelican's native theme picker. Administrators can configure Glass, Solid, Floating, or Light Glass styles, 29 colors, opacity, blur, radius and density; upload a validated background; and publish a safe global Markdown notice. Settings use Pelican's supported plugin mechanisms and require no database migrations.
 
 Vetra Theme does not replace the console, file manager, server metrics, permissions, or power actions. It styles the real native components already rendered by Pelican.
 
 ## Highlights
 
-- Supports Pelican `admin`, `app`, and `server` panels.
+- Supports Pelican `admin`, `app`, and `server` panels and the rc.3 theme picker.
 - Four visual styles with separate light and dark palettes.
 - Persistent background upload from plugin settings.
 - Safe global Markdown notice without active HTML.
@@ -32,14 +32,14 @@ Vetra Theme does not replace the console, file manager, server metrics, permissi
 
 ## Requirements
 
-- Pelican Panel `1.0.0-rc.2`.
+- Pelican Panel `1.0.0-rc.3`.
 - Plugin API 1.
 - Queue worker active for installation and updates.
 - Modern browser.
 
 ## Installation
 
-Import `vetra-theme-1.0.1.zip` from **Administration → Plugins**, wait for the queue, install, enable, and save the appearance settings. Do not use the `-source.zip` asset as the installable package.
+Import `vetra-theme-1.1.0.zip` from **Administration → Plugins**, wait for the queue, install, enable, select Vetra with the native theme picker, and save its appearance settings. Do not use the `-source.zip` asset as the installable package.
 
 ## Privacy and security
 
