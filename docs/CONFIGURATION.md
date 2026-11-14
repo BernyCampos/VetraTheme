@@ -9,8 +9,6 @@ Open **Administration → Plugins → Vetra Theme → Settings**. Changes are gl
 | Field | Options or range | Purpose |
 | --- | --- | --- |
 | Style | Glass, Solid, Floating, Light Glass | Surface transparency and navigation treatment |
-| Initial mode | System, Light, Dark | Initial value; Pelican's user selector keeps the browser choice |
-| Navigation | Pelican preference, Sidebar, Topbar, Mixed | Uses native components available in each panel |
 | Density | Comfortable, Compact | Table and header spacing |
 | Primary | Six-digit hex color | Buttons and upper/right ambient light |
 | Secondary | Six-digit hex color | Central ambient light |
@@ -18,11 +16,10 @@ Open **Administration → Plugins → Vetra Theme → Settings**. Changes are gl
 | Surface opacity | 65–100% | Card and navigation transparency |
 | Navigation blur | 0–40 px | Sidebar and topbar backdrop blur |
 | Corner radius | 8–28 px | Shared rounded corners |
-| Sidebar width | 220–320 px | Native sidebar width |
 | Native charts on right | On/off | Reflows existing charts at widths of 1280 px or greater |
 | Reduce transitions | On/off | Disables decorative motion |
 
-The `app` panel never receives an invented sidebar. Navigation settings apply only where Pelican exposes the corresponding native component.
+The `app` panel never receives an invented sidebar. Pelican's own theme picker controls theme selection; color mode and navigation layout remain Pelican-native. Vetra no longer exposes its old initial-mode, navigation-layout or sidebar-width controls, which cannot be scoped safely to one user's selected theme. Existing saved values are preserved but ignored.
 
 ## Full palettes
 

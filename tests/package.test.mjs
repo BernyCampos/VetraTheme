@@ -9,7 +9,8 @@ test('Pelican manifest, namespace and panels', () => {
     assert.equal(manifest.name, 'Vetra Theme');
     assert.equal(manifest.category, 'theme');
     assert.equal(manifest.api_version, 1);
-    assert.equal(manifest.version, '1.0.1');
+    assert.equal(manifest.version, '1.1.0');
+    assert.equal(manifest.panel_version, '1.0.0-rc.3');
     assert.deepEqual(manifest.panels, ['admin', 'app', 'server']);
     assert.equal(manifest.version, JSON.parse(read('package.json')).version);
     assert.ok(!('composer_packages' in manifest));
@@ -17,6 +18,27 @@ test('Pelican manifest, namespace and panels', () => {
     assert.ok(!('meta' in manifest));
     assert.equal(manifest.update_url, 'https://hub.pelican.dev/plugins/vetra-theme/update.json');
 });
+test('Native theme selector keeps styles and render hooks scoped to active Vetra', () => {
+    const php = read('src/VetraThemePlugin.php');
+    assert.match(php, /implements Plugin, HasTheme, HasPluginSettings/);
+    for (const method of ['getThemeViteEntry', 'getThemeColors', 'getThemeFont', 'getThemeRenderHooks']) {
+        assert.match(php, new RegExp('function ' + method + '\\('));
+    }
+    assert.match(php, /plugins\/vetra-theme\/resources\/css\/vetra\.css/);
+    for (const hook of ['STYLES_AFTER', 'BODY_START', 'CONTENT_START', 'PAGE_HEADER_HEADING_AFTER']) {
+        assert.match(php, new RegExp('PanelsRenderHook::' + hook));
+    }
+    assert.match(php, /in_array\(Console::class, \$scopes, true\)/);
+    assert.doesNotMatch(php, /->(?:colors|defaultThemeMode|sidebarWidth|topNavigation|topbar|viteTheme|theme)\(/);
+    assert.match(php, /array_replace\(config\('vetra-theme', \[\]\), \$data\)/);
+    const form = read('src/SettingsForm.php');
+    assert.doesNotMatch(form, /\$select\('(?:mode|navigation)'/);
+    assert.doesNotMatch(form, /\$number\('sidebar_width'/);
+    const style = read('resources/views/styles.blade.php');
+    assert.doesNotMatch(style, /stylesheet|id="vetra-theme"/);
+    assert.match(style, /body:has\(#vetra-ambient\)/);
+});
+
 test('Plugin identifier, PHP namespace, routes and environment use the new theme identity', () => {
     assert.equal(manifest.id, 'vetra-theme');
     assert.equal(manifest.namespace, 'Vetra\\Theme');
@@ -38,7 +60,7 @@ test('Additive integration and protected settings', () => {
     assert.match(php, /writeToEnvironment\(\$variables\)/);
     assert.match(read('resources/views/notice.blade.php'), /Notice::render\(\$notice\)/);
     assert.doesNotMatch(read('resources/views/styles.blade.php'), /@vite/);
-    assert.match(read('resources/views/styles.blade.php'), /vetra-theme/);
+    assert.match(read('resources/views/styles.blade.php'), /vetra-variables/);
     assert.match(read('src/Notice.php'), /catch \(Throwable\)/);
     assert.doesNotMatch(read('resources/css/vetra.css'), /@import.*(?:tailwind|filament)/);
 });

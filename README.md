@@ -1,15 +1,15 @@
 # Vetra Theme
 
-A configurable glass theme for **Pelican Panel 1.0.0-rc.2**, packaged as a plugin with category `theme` and API version 1.
+A switchable glass theme for **Pelican Panel 1.0.0-rc.3**, packaged as a plugin with category `theme` and API version 1. Vetra integrates with Pelican's native theme picker.
 
 Vetra Theme adds ambient lighting, translucent surfaces, and persistent appearance controls without replacing Filament's foundational CSS, modifying Pelican core, or recreating operational features. Console access, files, metrics, permissions, and power actions remain native Pelican features.
 
 ## Highlights
 
 - Glass, Solid, Floating, and Light Glass visual styles.
-- Native sidebar, topbar, or mixed navigation where Pelican exposes those layouts.
+- User-menu/profile theme selector and administrator default/forced-theme support through Pelican.
 - Separate light and dark palettes with 29 configurable colors.
-- Adjustable opacity, blur, radius, density, sidebar width, and background treatment.
+- Adjustable opacity, blur, radius, density, and background treatment.
 - Background image upload from plugin settings with validated persistent storage.
 - Safe global notice with Markdown, links, lists, and responsive spacing.
 - Server header, six independent resource cards, and native SVG power controls.
@@ -36,11 +36,11 @@ Vetra Theme adds ambient lighting, translucent surfaces, and persistent appearan
 
 ![File manager](docs/images/file-manager.png)
 
-See the [screenshot guide](docs/SCREENSHOTS.md) for the purpose and limits of each image.
+See the [screenshot guide](docs/SCREENSHOTS.md) for the purpose and limits of each image. Existing screenshots predate the native selector and should be refreshed after staging validation.
 
 ## Requirements
 
-- Pelican Panel `1.0.0-rc.2`.
+- Pelican Panel `1.0.0-rc.3`.
 - PHP `8.4` or the version required by that Pelican release.
 - Pelican queue worker running while installing or updating plugins.
 - A browser with modern CSS support.
@@ -49,19 +49,20 @@ Compatibility is intentionally restricted to the tested release. Read [COMPATIBI
 
 ## Installation
 
-1. Download `vetra-theme-1.0.1.zip` from the release assets.
+1. Download `vetra-theme-1.1.0.zip` from the release assets.
 2. Open **Administration → Plugins → Import**.
 3. Import the ZIP and wait for the queue job to finish.
 4. Install and enable Vetra Theme.
-5. Open the plugin settings, save the appearance, and fully reload the page.
+5. Select Vetra in Pelican's native theme picker, or set it as the default in Pelican settings.
+6. Customize Vetra in plugin settings and fully reload the page.
 
 Do not copy files into Pelican's `app`, `resources`, `vendor`, or other core directories. The full [installation guide](docs/INSTALLATION.md) covers verification, updates, and removal.
 
 ## Configuration and localization
 
-Settings are available at **Administration → Plugins → Vetra Theme → Settings**. They include style, navigation, density, colors, opacity, blur, radius, sidebar width, background, safe Markdown notice, and accessibility preferences.
+Settings are available at **Administration → Plugins → Vetra Theme → Settings**. They include style, density, colors, opacity, blur, radius, background, safe Markdown notice, and accessibility preferences. Pelican owns theme selection, color mode, and navigation layout.
 
-English is the source language in code, metadata, tests, and documentation. Runtime labels use Pelican's translation system under `vetra-theme::ui`; `lang/es` supplies Spanish automatically when the panel locale is Spanish. The plugin does not force or override the user's locale.
+English is the source language in code, metadata, tests, and documentation. Runtime labels use Pelican's translation system under `vetra-theme::ui`; `lang/es` supplies Spanish automatically when the panel locale is Spanish. The plugin does not force or override the user's locale. Previously saved legacy navigation, initial-mode, and sidebar-width values remain stored but are no longer active in the native picker.
 
 Uploaded images are stored persistently in `storage/app/vetra-theme/background`. When possible, a mirror is kept in `plugins/vetra-theme/background`; Vetra Theme never changes server permissions. A read-only route serves the selected image with a random name and restrictive headers. Supported formats and limits are documented in [CONFIGURATION.md](docs/CONFIGURATION.md).
 
@@ -109,8 +110,8 @@ CI validates the manifest, compiled assets, PHP syntax, security-focused appeara
 
 The packaging script creates:
 
-- `build/vetra-theme-1.0.1.zip` — installable plugin.
-- `build/vetra-theme-1.0.1-source.zip` — source, tests, and workflow.
+- `build/vetra-theme-1.1.0.zip` — installable plugin.
+- `build/vetra-theme-1.1.0-source.zip` — source, tests, and workflow.
 - `build/SHA256SUMS` — release checksums.
 - `build/update.json` — update feed when `--repository` is provided.
 

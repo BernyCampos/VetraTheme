@@ -1,5 +1,5 @@
 /* Vetra Theme: additive CSS only. Filament and Pelican remain the layout owners.
- * Selectors tied to rc.2 are recorded in docs/COMPATIBILITY.md.
+ * Selectors tied to rc.3 are recorded in docs/COMPATIBILITY.md.
  */
 body:has(#vetra-ambient) {
     --vetra-surface-rgb: var(--vetra-light-surface-rgb);

@@ -7,7 +7,7 @@ Vetra Theme is an additive Pelican theme plugin. It integrates through Pelican's
 | Path | Responsibility |
 | --- | --- |
 | `plugin.json` | Theme identity, supported panels, versions, and update URL |
-| `src/VetraThemePlugin.php` | Plugin registration, hooks, colors, navigation, and settings persistence |
+| `src/VetraThemePlugin.php` | `HasTheme` contract (Vite entry, color palette, active-only render hooks, font) and settings persistence |
 | `src/Appearance.php` | Defaults, normalization, environment mapping, and CSS variables |
 | `src/SettingsForm.php` | Filament settings schema and validation |
 | `src/Notice.php` | Markdown rendering and HTML sanitization |
@@ -23,14 +23,14 @@ Vetra Theme is an additive Pelican theme plugin. It integrates through Pelican's
 
 The plugin registers with API version 1 and declares category `theme`. It uses these rendering hooks:
 
-- `STYLES_AFTER` inserts normalized variables and compiled CSS after native styles.
+- `STYLES_AFTER` inserts normalized dynamic CSS variables after native styles.
 - `BODY_START` adds one fixed decorative ambient layer without pointer events.
 - `CONTENT_START` renders the global notice only when content exists.
 - `PAGE_HEADER_HEADING_AFTER` adds real server context on the console page.
 
-It does not call `theme()` or `viteTheme()`. Requests read the packaged `dist/vetra.css`, so rendering does not depend on Pelican's Vite manifest.
+It does not call `theme()` or `viteTheme()`. `getThemeViteEntry()` advertises `plugins/vetra-theme/resources/css/vetra.css` to Pelican's unchanged Vite pipeline. Pelican's ThemeService injects this stylesheet, colors, and Vetra hooks only for the active theme, while leaving Filament's foundational CSS untouched. `dist/vetra.css` remains an independent build artifact and is no longer injected inline.
 
-Navigation preferences use Filament configuration exposed by Pelican. The `app` panel keeps its native structure when a requested navigation component is unavailable.
+`register()` leaves Filament panel layout unchanged. Pelican owns theme selection, light/dark mode, and navigation layout. Legacy mode, navigation and sidebar-width values are kept but hidden and inactive; saving other Vetra settings preserves existing legacy values.
 
 ## Presentation boundaries
 

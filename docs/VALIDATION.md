@@ -1,4 +1,4 @@
-# Vetra Theme 1.0.1 validation
+# Vetra Theme 1.1.0 validation
 
 ## Automated environment
 
@@ -14,7 +14,7 @@ Automated tests must never run against a production panel.
 | Area | Coverage |
 | --- | --- |
 | Manifest | Theme category, API 1, panels, namespace, class, identity, and version alignment |
-| Integration boundaries | No Filament theme replacement, no remote CSS import, settings authorization |
+| Integration boundaries | `HasTheme` methods, no global layout overrides, scoped hooks, no remote CSS imports, settings authorization |
 | Appearance | Defaults, normalization, ranges, safe paths, CSS generation, UTF-8 notice limit |
 | Localization | Matching English and Spanish top-level translation keys |
 | Assets | Compiled ambient, terminal, resource-card, power-group, and accessibility rules |
@@ -53,7 +53,8 @@ They require `VETRA_URL`, `VETRA_EMAIL`, `VETRA_PASSWORD`, and optionally `VETRA
 
 - Fresh install, update, disable, uninstall, and safe-mode recovery on a clean staging panel.
 - Full Firefox and Safari review.
-- Pelican versions other than `1.0.0-rc.2`.
+- Pelican versions other than `1.0.0-rc.3`.
+- Switcher coexistence (another theme, default, forced, none, and per-user selection) on a live staging panel.
 - Broad compatibility matrix with plugins that replace navigation, console, tables, or widgets.
 - External accessibility and security audits.
 - Destructive native file and power operations under multiple subuser policies.
@@ -62,4 +63,4 @@ They require `VETRA_URL`, `VETRA_EMAIL`, `VETRA_PASSWORD`, and optionally `VETRA
 
 ## Release criterion
 
-Version 1.0.1 targets the exact Pelican version declared in `plugin.json`. Release notes must keep the pending validation items above visible.
+Version 1.1.0 targets the exact Pelican version declared in `plugin.json`. Release notes must keep the pending validation items above visible.
