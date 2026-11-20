@@ -20,7 +20,7 @@ Vetra Theme does not replace the console, file manager, server metrics, permissi
 
 ## Highlights
 
-- Supports Pelican `admin`, `app`, and `server` panels and the rc.3 theme picker.
+- Supports Pelican `admin`, `app`, and `server` panels and the rc.4 native theme picker.
 - Four visual styles with separate light and dark palettes.
 - Persistent background upload from plugin settings.
 - Safe global Markdown notice without active HTML.
@@ -32,14 +32,14 @@ Vetra Theme does not replace the console, file manager, server metrics, permissi
 
 ## Requirements
 
-- Pelican Panel `1.0.0-rc.3`.
+- Pelican Panel `1.0.0-rc.4`.
 - Plugin API 1.
 - Queue worker active for installation and updates.
 - Modern browser.
 
 ## Installation
 
-Import `vetra-theme-1.1.0.zip` from **Administration → Plugins**, wait for the queue, install, enable, select Vetra with the native theme picker, and save its appearance settings. Do not use the `-source.zip` asset as the installable package.
+Import `vetra-theme-1.1.1.zip` from **Administration → Plugins**, wait for the queue, install, enable, select Vetra with the native theme picker, and save its appearance settings. Do not use the `-source.zip` asset as the installable package.
 
 ## Privacy and security
 

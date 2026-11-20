@@ -1,0 +1,109 @@
+name: Publish Vetra Theme v1.1.1
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-vetra-v1.1.1.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release commit
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          extensions: dom, fileinfo, intl, mbstring, pdo_sqlite, sodium, zip
+
+      - name: Validate Vetra v1.1.1 release manifest
+        run: |
+          node - <<'NODE'
+          const fs = require('fs');
+          const plugin = JSON.parse(fs.readFileSync('plugin.json'));
+          if (plugin.id !== 'vetra-theme' || plugin.version !== '1.1.1' || plugin.panel_version !== '1.0.0-rc.4' || plugin.category !== 'theme' || 'meta' in plugin) {
+            throw new Error('Vetra release manifest mismatch');
+          }
+          NODE
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build standalone stylesheet
+        run: npm run build
+
+      - name: Run automated checks
+        run: |
+          npm test
+          find src config lang tests -name '*.php' -print0 | xargs -0 -n1 php -l
+          php tests/appearance.php
+
+      - name: Create reproducible release packages
+        run: python scripts/package.py --repository BernyCampos/VetraTheme
+
+      - name: Check release packages
+        run: |
+          cd build
+          sha256sum --check SHA256SUMS
+          unzip -t vetra-theme-1.1.1.zip
+          unzip -t vetra-theme-1.1.1-source.zip
+
+      - name: Write release notes
+        run: |
+          cat > build/RELEASE_NOTES.md <<'NOTES'
+          ## Vetra Theme v1.1.1 — Pelican rc.4 compatibility
+
+          Vetra Theme v1.1.1 supports **Pelican Panel v1.0.0-rc.4** and its native theme switcher.
+
+          ### Changes
+          - Adjust strict `panel_version` compatibility from rc.3 to rc.4; Pelican compares prerelease versions exactly by default.
+          - Verify the unchanged official `App\\Contracts\\Plugins\\HasTheme` interface, active-theme CSS/colors/hooks and native Vite integration.
+          - Preserve the same Vetra glass design, 29 colors, saved appearance preferences, backgrounds, notices and native server interfaces.
+          - Do not patch the Pelican core or introduce migrations, permission changes or new dependencies.
+
+          ### Compatibility
+          - **Requires Pelican Panel v1.0.0-rc.4**; plugin API 1; theme ID `vetra-theme`.
+          - Use Vetra v1.1.0 on Pelican rc.3, or v1.0.1 on rc.2.
+          - Supports the `admin`, `app` and `server` panel interfaces.
+
+          ### Assets
+          - `vetra-theme-1.1.1.zip` — installable Pelican plugin.
+          - `vetra-theme-1.1.1-source.zip` — source, documentation and tests.
+          - `SHA256SUMS` — archive digests.
+          - `update.json` — rc.4-specific update feed data.
+
+          ### Verification
+          Automated Node/Vite builds, PHP syntax/appearance checks, ZIP integrity and checksums pass in GitHub Actions before this release is published. Full on-panel rc.4 theme switching, installed themes coexistence, live admin/app/server UI, background upload and upgrade/uninstall workflows still require isolated staging confirmation.
+
+          GitHub Releases do not automatically update the Pelican Hub Marketplace listing or its hosted update feed.
+          NOTES
+
+      - name: Publish GitHub Release and artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view v1.1.1 >/dev/null 2>&1; then
+            echo 'Release v1.1.1 already exists; no duplicate release created.'
+            exit 0
+          fi
+          gh release create v1.1.1 \
+            build/vetra-theme-1.1.1.zip \
+            build/vetra-theme-1.1.1-source.zip \
+            build/SHA256SUMS \
+            build/update.json \
+            --target "$GITHUB_SHA" \
+            --title "Vetra Theme v1.1.1" \
+            --notes-file build/RELEASE_NOTES.md

@@ -1,4 +1,4 @@
-# Vetra Theme 1.1.0 validation
+# Vetra Theme 1.1.1 validation
 
 ## Automated environment
 
@@ -22,7 +22,7 @@ Automated tests must never run against a production panel.
 | Packaging | Single root, no `meta`, no development dependencies or secrets, deterministic metadata |
 | PHP | Syntax check for `src`, `config`, `lang`, and `tests` |
 
-Live-panel integration is verified separately on a disposable staging installation.
+Full live-panel integration on rc.4 remains pending; the checks below describe automated coverage or staging scripts, not a completed live installation.
 
 ## Browser scripts available for staging
 
@@ -53,7 +53,7 @@ They require `VETRA_URL`, `VETRA_EMAIL`, `VETRA_PASSWORD`, and optionally `VETRA
 
 - Fresh install, update, disable, uninstall, and safe-mode recovery on a clean staging panel.
 - Full Firefox and Safari review.
-- Pelican versions other than `1.0.0-rc.3`.
+- Pelican versions other than `1.0.0-rc.4`.
 - Switcher coexistence (another theme, default, forced, none, and per-user selection) on a live staging panel.
 - Broad compatibility matrix with plugins that replace navigation, console, tables, or widgets.
 - External accessibility and security audits.
@@ -63,4 +63,4 @@ They require `VETRA_URL`, `VETRA_EMAIL`, `VETRA_PASSWORD`, and optionally `VETRA
 
 ## Release criterion
 
-Version 1.1.0 targets the exact Pelican version declared in `plugin.json`. Release notes must keep the pending validation items above visible.
+Version 1.1.1 targets the exact Pelican version declared in `plugin.json`. Release notes must keep the pending validation items above visible.

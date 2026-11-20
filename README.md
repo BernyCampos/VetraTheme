@@ -1,6 +1,6 @@
 # Vetra Theme
 
-A switchable glass theme for **Pelican Panel 1.0.0-rc.3**, packaged as a plugin with category `theme` and API version 1. Vetra integrates with Pelican's native theme picker.
+A switchable glass theme for **Pelican Panel 1.0.0-rc.4**, packaged as a plugin with category `theme` and API version 1. Vetra integrates with Pelican's native theme picker.
 
 Vetra Theme adds ambient lighting, translucent surfaces, and persistent appearance controls without replacing Filament's foundational CSS, modifying Pelican core, or recreating operational features. Console access, files, metrics, permissions, and power actions remain native Pelican features.
 
@@ -40,16 +40,16 @@ See the [screenshot guide](docs/SCREENSHOTS.md) for the purpose and limits of ea
 
 ## Requirements
 
-- Pelican Panel `1.0.0-rc.3`.
+- Pelican Panel `1.0.0-rc.4`.
 - PHP `8.4` or the version required by that Pelican release.
 - Pelican queue worker running while installing or updating plugins.
 - A browser with modern CSS support.
 
-Compatibility is intentionally restricted to the tested release. Read [COMPATIBILITY.md](docs/COMPATIBILITY.md) before trying another version.
+Compatibility is pinned to Pelican rc.4 because its plugin version constraint is strict. v1.1.0 remains available for rc.3, and v1.0.1 for rc.2. The official theme contract is unchanged in rc.4, but full live-panel installation and visual verification remain pending. Read [COMPATIBILITY.md](docs/COMPATIBILITY.md) before trying another version.
 
 ## Installation
 
-1. Download `vetra-theme-1.1.0.zip` from the release assets.
+1. Download `vetra-theme-1.1.1.zip` from the release assets.
 2. Open **Administration → Plugins → Import**.
 3. Import the ZIP and wait for the queue job to finish.
 4. Install and enable Vetra Theme.
@@ -110,8 +110,8 @@ CI validates the manifest, compiled assets, PHP syntax, security-focused appeara
 
 The packaging script creates:
 
-- `build/vetra-theme-1.1.0.zip` — installable plugin.
-- `build/vetra-theme-1.1.0-source.zip` — source, tests, and workflow.
+- `build/vetra-theme-1.1.1.zip` — installable plugin.
+- `build/vetra-theme-1.1.1-source.zip` — source, tests, and workflow.
 - `build/SHA256SUMS` — release checksums.
 - `build/update.json` — update feed when `--repository` is provided.
 

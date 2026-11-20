@@ -71,3 +71,7 @@ Publication requirements can change. Recheck the [Pelican plugin documentation](
 - [ ] All five screenshots match the current Vetra Theme name.
 - [ ] GitHub Actions green on the submitted commit.
 - [ ] Hub submission points to the new commit.
+
+## Vetra Theme v1.1.1 — Pelican rc.4
+
+The current release targets Pelican Panel `1.0.0-rc.4` exactly. The plugin class, design CSS, persisted settings, upload limits, and render hooks remain unchanged from v1.1.0; this update adjusts the strict compatibility declaration and release/test metadata. Pelican rc.3 users should retain v1.1.0; rc.2 users should retain v1.0.1. The official four-method theme contract is unchanged in rc.4. Automated Vite, PHP, appearance, package and archive tests are required; live admin/app/server, native theme switching, and update/install/remove checks remain pending.
