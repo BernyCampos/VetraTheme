@@ -19,6 +19,7 @@ assert manifest['namespace'] == 'Vetra\\Theme' and manifest['class'] == 'VetraTh
 assert manifest['category'] == 'theme' and manifest['api_version'] == 1
 assert 'meta' not in manifest
 assert manifest['version'] == json.loads((ROOT / 'package.json').read_text())['version']
+assert manifest['panel_version'] == '1.0.0-rc.4', 'This release targets Pelican rc.4 exclusively'
 assert (ROOT / 'dist/vetra.css').is_file(), 'Run npm run build first'
 version = manifest['version']
 assert re.fullmatch(r'\d+\.\d+\.\d+(?:-[a-zA-Z0-9.-]+)?', version)

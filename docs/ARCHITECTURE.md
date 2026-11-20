@@ -74,3 +74,7 @@ If settings persistence fails, a newly stored upload is rolled back. Removing a 
 ## Non-goals
 
 Vetra Theme does not implement authentication, permissions, metrics, WebSockets, power actions, file operations, user preferences, a terminal, or an editor. Those capabilities remain owned by Pelican and Wings.
+
+## Pelican rc.4 compatibility (v1.1.1)
+
+Pelican v1.0.0-rc.4 preserves the official four-method `HasTheme` interface and `ThemeService` active-theme gating from rc.3. Vetra's CSS and PHP rendering components remain unchanged to avoid visual regressions. `plugin.json` is pinned to rc.4 under Pelican's strict pre-release version comparison, and the release pipeline checks this constraint. This does not establish full visual equivalence until verified on a real rc.4 panel.

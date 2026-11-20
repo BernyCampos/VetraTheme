@@ -2,15 +2,15 @@
 
 ## Supported target
 
-| Component | Verified version |
+| Component | Target / validation |
 | --- | --- |
-| Pelican Panel | `1.0.0-rc.3` |
+| Pelican Panel | `1.0.0-rc.4` |
 | Pelican plugin API | `1` |
 | Filament | Version bundled with the target Pelican release |
 | PHP | `8.4` in CI |
 | Node.js | `22` for asset builds and tests |
 
-`plugin.json` intentionally declares `panel_version: 1.0.0-rc.3`. Pelican rc.2 lacks the `HasTheme` contract, so Vetra 1.1.0 is not compatible with rc.2. Other versions are not claimed as tested.
+`plugin.json` intentionally declares `panel_version: 1.0.0-rc.4` because Pelican's strict plugin compatibility check rejects an exact rc.3 constraint on rc.4. The official `HasTheme` and active-theme hook implementation did not change between these releases. Vetra v1.1.0 remains available for Pelican rc.3; v1.0.1 remains available for rc.2. The rc.4 target has automated package/contract tests, but no connected live-panel end-to-end validation yet.
 
 ## Panels
 
@@ -30,7 +30,7 @@ Fallbacks preserve solid surfaces when blur is unavailable. `prefers-reduced-mot
 
 Vetra Theme styles documented or observed Filament/Pelican structures such as `.fi-sidebar`, `.fi-topbar`, `.fi-header`, `.fi-section`, `.fi-ta`, `.fi-modal`, `.fi-console-page`, `.fi-wi-widget`, `.fi-wi-chart`, and the native header action group. Markup changes in a future Pelican/Filament release may require a new Vetra Theme version.
 
-Pelican's native theme picker activates Vetra's Vite stylesheet, colors and render hooks only when selected. The old panel-wide mode, navigation layout and sidebar width options are not used by Vetra 1.1.0 because they cannot be applied safely to an individual user's selected theme. Plugins that replace navigation, tables, headers, terminal layout, or widgets may require specific compatibility work.
+Pelican's native theme picker activates Vetra's Vite stylesheet, colors and render hooks only when selected. The old panel-wide mode, navigation layout and sidebar width options are not used by Vetra 1.1.1 because they cannot be applied safely to an individual user's selected theme. Plugins that replace navigation, tables, headers, terminal layout, or widgets may require specific compatibility work.
 
 ## References
 

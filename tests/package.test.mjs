@@ -9,8 +9,8 @@ test('Pelican manifest, namespace and panels', () => {
     assert.equal(manifest.name, 'Vetra Theme');
     assert.equal(manifest.category, 'theme');
     assert.equal(manifest.api_version, 1);
-    assert.equal(manifest.version, '1.1.0');
-    assert.equal(manifest.panel_version, '1.0.0-rc.3');
+    assert.equal(manifest.version, '1.1.1');
+    assert.equal(manifest.panel_version, '1.0.0-rc.4');
     assert.deepEqual(manifest.panels, ['admin', 'app', 'server']);
     assert.equal(manifest.version, JSON.parse(read('package.json')).version);
     assert.ok(!('composer_packages' in manifest));
@@ -37,6 +37,20 @@ test('Native theme selector keeps styles and render hooks scoped to active Vetra
     const style = read('resources/views/styles.blade.php');
     assert.doesNotMatch(style, /stylesheet|id="vetra-theme"/);
     assert.match(style, /body:has\(#vetra-ambient\)/);
+});
+
+
+test('rc.4 compatibility remains strict and native selector resource contract unchanged', () => {
+    assert.equal(manifest.panel_version, '1.0.0-rc.4');
+    const plugin = read('src/VetraThemePlugin.php');
+    assert.match(plugin, /implements Plugin, HasTheme, HasPluginSettings/);
+    assert.match(plugin, /plugins\/vetra-theme\/resources\/css\/vetra\.css/);
+    assert.match(plugin, /PanelsRenderHook::STYLES_AFTER/);
+    assert.match(plugin, /PanelsRenderHook::BODY_START/);
+    assert.match(plugin, /PanelsRenderHook::CONTENT_START/);
+    assert.match(plugin, /PanelsRenderHook::PAGE_HEADER_HEADING_AFTER/);
+    assert.doesNotMatch(plugin, /->(?:theme|viteTheme|topNavigation|defaultThemeMode)\(/);
+    assert.doesNotMatch(read('resources/css/vetra.css'), /@import.*(?:filament|tailwind)/);
 });
 
 test('Plugin identifier, PHP namespace, routes and environment use the new theme identity', () => {
